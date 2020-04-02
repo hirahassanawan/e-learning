@@ -10,7 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/404', function () {
+
+ Route::get('/', function () {
+     return view('welcome');
+ });
+ Route::get('/404', function () {
     return view('404');
 });
 
@@ -28,15 +32,8 @@ Route::get('/forgot-password', function () {
     return view('forgot-password');
 });
 
-Route::get('/{index}', function () {
+Route::get('/index', function () {
     return view('index');
-});
-Route::get('/login', function () {
-    return view('login');
-});
-
-Route::get('/register', function () {
-    return view('register');
 });
 Route::get('/tables', function () {
     return view('tables');
@@ -53,7 +50,7 @@ Route::get('/color', function () {
 Route::get('/other', function () {
     return view('utilities-other');
 });
+ Auth::routes();
+// Route::get('send','MailController@send');
+ Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-Route::get('send','MailController@send');
-Route::get('/home', 'HomeController@index')->name('home');

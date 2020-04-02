@@ -80,7 +80,7 @@
             <h6 class="collapse-header">Custom Utilities:</h6>
             <a class="collapse-item" href="color">Colors</a>
             <a class="collapse-item" href="border">Borders</a>
-            <a class="collapse-item" href="animationl">Animations</a>
+            <a class="collapse-item" href="animation">Animations</a>
             <a class="collapse-item" href="other">Other</a>
           </div>
         </div>
@@ -108,8 +108,8 @@
             <a class="collapse-item" href="forgot-password">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404">404 Page</a>
-            <a class="collapse-item" href="blank">Blank Page</a>
+            <a class="collapse-item" href="404.html">404 Page</a>
+            <a class="collapse-item" href="blank.html">Blank Page</a>
           </div>
         </div>
       </li>

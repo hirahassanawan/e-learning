@@ -43,10 +43,11 @@ class ResetPasswordController extends Controller
         {
                     $finaldata['status']="Success";
                     $finaldata['reason']="record Exist, password updated";
-                    $newpass = time();
-                    User::where('email',$email)->update(['password'=>$newpass]);
-                    $finaldata['data']=$user; 
-        Mail::raw('your new password is: '.$newpass, function($message) {
+                    $newpassword = time();
+                    User::where('email',$email)->update(['password'=>$newpassword]);
+                    $finaldata['data']=$user;
+                    
+        Mail::send(['text'=>'mail'],['name','Hina'],function($message){
             $message->to('hinalilaram@gmail.com','hina lilaram')->subject('new password');
             $message->from('hinalilaram@gmail.com','Hina');
 
