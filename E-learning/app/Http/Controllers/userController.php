@@ -187,4 +187,5 @@ public function reset(Request $request){
     return response()->json($finaldata);
 }
 
+
 }
