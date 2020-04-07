@@ -9,13 +9,32 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title >SB Admin 2 - Dashboard</title>
+  <title>SB Admin 2 - Dashboard</title>
+
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet" />
+  <link href="{{URL::asset('css/now-ui-dashboard.css?v=1.5.0')}}" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="{{URL::asset('demo/demo.min.css')}}" rel="stylesheet" />
+  <!--   Core JS Files   -->
+  <script src="{{URL::asset('js/core/jquery.min.js')}}"></script>
+  <script src="{{URL::asset('js/core/popper.min.js')}}"></script>
+  <script src="{{URL::asset('js/core/bootstrap.min.js')}}"></script>
+  <script src="{{URL::asset('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="{{URL::asset('js/plugins/chartjs.min.js')}}"></script>
+  <!--  Notifications Plugin    -->
+  <script src="{{URL::asset('js/plugins/bootstrap-notify.js')}}"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{{URL::asset('js/now-ui-dashboard.min.js?v=1.5.0')}}" type="text/javascript"></script>
+  <script src="{{URL::asset('demo/demo.js')}}"></script>
 
 </head>
 
@@ -23,7 +42,7 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
-
+@section('sidebar')
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -107,8 +126,8 @@
             <a class="collapse-item" href="forgot-password">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <a class="collapse-item" href="404">404 Page</a>
+            <a class="collapse-item" href="blank">Blank Page</a>
           </div>
         </div>
       </li>
@@ -136,6 +155,7 @@
       </div>
 
     </ul>
+    @show
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -143,7 +163,7 @@
 
       <!-- Main Content -->
       <div id="content">
-
+@section('navbar')
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -325,15 +345,16 @@
           </ul>
 
         </nav>
+        @show
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
+           @section('content')
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard <input type="text" id="input"><br><p id="name"></p></h1>
-            <a href="#" id='test'class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
 
           <!-- Content Row -->
@@ -607,13 +628,14 @@
 
             </div>
           </div>
-
+             @show
         </div>
+
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
-
+@section('footer')
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -623,7 +645,7 @@
         </div>
       </footer>
       <!-- End of Footer -->
-
+@show
     </div>
     <!-- End of Content Wrapper -->
 
@@ -634,6 +656,7 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -648,7 +671,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login">Logout</a>
+          <a class="btn btn-primary" href="login.html">Logout</a>
         </div>
       </div>
     </div>
@@ -670,24 +693,7 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-<script>
-$(document).ready(function(){
-  // $('#test').click(function(){
-  //   $.get('../resources/views/404.blade.php', function(data, status){
-  //     $('#para').text(data);
-  //  });
-  // });
-  $('#input').keyup(function(){
-    name = $('#input').val(); 
-    $.post('../app/name.php',{
-      s: name
-    }, function(data, status){
-       $('#name').html(data);
-       
-   });
-  });
-});
-</script>
+
 </body>
 
 </html>
