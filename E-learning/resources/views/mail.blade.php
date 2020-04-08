@@ -1,1 +1,1 @@
-hello hina, your new password is : {{$pass}}
+hello hina,
