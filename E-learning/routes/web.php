@@ -31,7 +31,7 @@ Route::get('/charts', function () {
 Route::get('/forgot-password', function () {
     return view('forgot-password');
 });
-
+route::get('/do','Mailcontroller@data');
 Route::get('/index', function () {
     return view('index');
 });

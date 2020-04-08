@@ -672,20 +672,22 @@
   <script src="js/demo/chart-pie-demo.js"></script>
 <script>
 $(document).ready(function(){
-  // $('#test').click(function(){
-  //   $.get('../resources/views/404.blade.php', function(data, status){
-  //     $('#para').text(data);
-  //  });
-  // });
-  $('#input').keyup(function(){
-    name = $('#input').val(); 
-    $.post('../app/name.php',{
-      s: name
-    }, function(data, status){
-       $('#name').html(data);
-       
+  $('#test').click(function(){
+    $.get('../app/Http/Controllers/MailController.php', function(data, status){
+     alert(data);// $('#para').text(data);
    });
   });
+  // $('#input').keyup(function(){
+  //   name = $('#input').val();
+  //   email = $('#email').val(); 
+  //   $.post('../app/name.php',{
+  //     s: name,
+  //     e:email
+  //   }, function(data, status){
+  //      $('#name').html(data);
+       
+  //  });
+  // });
 });
 </script>
 </body>
