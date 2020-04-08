@@ -54,7 +54,7 @@
                     <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                   </div>
                 </div>
-                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                <a href="login" class="btn btn-primary btn-user btn-block">
                   Register Account
                 </a>
                 <hr>

@@ -9,8 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
-
+  <title >SB Admin 2 - Dashboard</title>
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -29,7 +28,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -78,10 +77,10 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color">Colors</a>
-            <a class="collapse-item" href="utilities-border">Borders</a>
-            <a class="collapse-item" href="utilities-animation">Animations</a>
-            <a class="collapse-item" href="utilities-other">Other</a>
+            <a class="collapse-item" href="color">Colors</a>
+            <a class="collapse-item" href="border">Borders</a>
+            <a class="collapse-item" href="animation">Animations</a>
+            <a class="collapse-item" href="other">Other</a>
           </div>
         </div>
       </li>
@@ -108,8 +107,8 @@
             <a class="collapse-item" href="forgot-password">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404">404 Page</a>
-            <a class="collapse-item" href="blank">Blank Page</a>
+            <a class="collapse-item" href="404.html">404 Page</a>
+            <a class="collapse-item" href="blank.html">Blank Page</a>
           </div>
         </div>
       </li>
@@ -333,8 +332,8 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <h1 class="h3 mb-0 text-gray-800">Dashboard <input type="text" id="input"><br><p id="name"></p></h1>
+            <a href="#" id='test'class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
 
           <!-- Content Row -->
@@ -671,7 +670,24 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
-
+<script>
+$(document).ready(function(){
+  // $('#test').click(function(){
+  //   $.get('../resources/views/404.blade.php', function(data, status){
+  //     $('#para').text(data);
+  //  });
+  // });
+  $('#input').keyup(function(){
+    name = $('#input').val(); 
+    $.post('../app/name.php',{
+      s: name
+    }, function(data, status){
+       $('#name').html(data);
+       
+   });
+  });
+});
+</script>
 </body>
 
 </html>

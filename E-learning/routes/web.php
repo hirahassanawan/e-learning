@@ -11,50 +11,46 @@
 |
 */
 
-Route::get('/404', function () {
-   return view('404');
+ Route::get('/', function () {
+     return view('welcome');
+ });
+ Route::get('/404', function () {
+    return view('404');
 });
 
 Route::get('/buttons', function () {
-   return view('buttons');
+    return view('buttons');
 });
 
 Route::get('/cards', function () {
-   return view('cards');
+    return view('cards');
 });
 Route::get('/charts', function () {
-   return view('charts');
+    return view('charts');
 });
 Route::get('/forgot-password', function () {
-   return view('forgot-password');
+    return view('forgot-password');
 });
 
 Route::get('/index', function () {
-   return view('index');
+    return view('index');
 });
 Route::get('/tables', function () {
-   return view('tables');
+    return view('tables');
 });
 Route::get('/animation', function () {
-   return view('utilities-animation');
+    return view('utilities-animation');
 });
 Route::get('/border', function () {
-   return view('border');
+    return view('utilities-border');
 });
 Route::get('/color', function () {
-   return view('utilities-color');
+    return view('utilities-color');
 });
 Route::get('/other', function () {
-   return view('utilities-other');
+    return view('utilities-other');
 });
-Route::get('/login', function () {
-    return view('login');
- });
- Route::get('/register', function () {
-    return view('register');
- });
-
+ Auth::routes();
 // Route::get('send','MailController@send');
-// Auth::routes();
+ Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::get('/', 'HomeController@index')->name('home');
