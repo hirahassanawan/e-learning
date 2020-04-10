@@ -46,8 +46,10 @@ class ResetPasswordController extends Controller
                     $newpassword = time();
                     User::where('email',$email)->update(['password'=>$newpassword]);
                     $finaldata['data']=$user;
-                    
-        Mail::send(['text'=>'mail'],['name','Hina'],function($message){
+                    $email = $request->input('email');
+      $data = array('email' => $email, 'newpassword'=>$newpassword);
+
+        Mail::send(['html'=>'mail'],$data,function($message) use($data){
             $message->to('hinalilaram@gmail.com','hina lilaram')->subject('new password');
             $message->from('hinalilaram@gmail.com','Hina');
 
@@ -121,5 +123,13 @@ class ResetPasswordController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function form(Request $request){
+        $user = new user();
+        // $user->email = $request['email'];
+        // $user->name = $request['name'];
+        // $user->save();
+        return $request['email'];//  return response()->json($request->all()); 
     }
 }

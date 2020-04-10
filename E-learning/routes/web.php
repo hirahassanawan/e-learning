@@ -50,7 +50,13 @@ Route::get('/color', function () {
 Route::get('/other', function () {
     return view('utilities-other');
 });
+Route::get('/register1', function () {
+    return view('register1');
+});
+
  Auth::routes();
-// Route::get('send','MailController@send');
- Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::post('store', 'TeacherController@store')->name('store');
+Route::get('/profile', 'TeacherController@index');
+Auth::routes();
 

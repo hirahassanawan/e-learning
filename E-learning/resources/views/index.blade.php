@@ -1,3 +1,4 @@
+@section('css')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,14 +26,14 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+         
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Teacher </div>
       </a>
 
       <!-- Divider -->
@@ -107,8 +108,8 @@
             <a class="collapse-item" href="forgot-password">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <a class="collapse-item" href="profile">Profile</a>
+            <a class="collapse-item" href="register1">Blank Page</a>
           </div>
         </div>
       </li>
@@ -145,15 +146,15 @@
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <!-- <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"> -->
 
           <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <!-- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
-          </button>
+          </button> -->
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -162,18 +163,18 @@
                 </button>
               </div>
             </div>
-          </form>
+          </form> -->
 
           <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
+          <!-- <ul class="navbar-nav ml-auto"> -->
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
+            <!-- <li class="nav-item dropdown no-arrow d-sm-none">
               <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
-              </a>
+              </a> -->
               <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+              <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                 <form class="form-inline mr-auto w-100 navbar-search">
                   <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -185,17 +186,17 @@
                   </div>
                 </form>
               </div>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            <!-- <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
+                <i class="fas fa-bell fa-fw"></i> -->
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
+                <!-- <span class="badge badge-danger badge-counter">3+</span>
+              </a> -->
               <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+              <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
                   Alerts Center
                 </h6>
@@ -234,17 +235,17 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            <!-- <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
+                <i class="fas fa-envelope fa-fw"></i> -->
                 <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
+                <!-- <span class="badge badge-danger badge-counter">7</span>
+              </a> -->
               <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+              <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                   Message Center
                 </h6>
@@ -292,16 +293,16 @@
               </div>
             </li>
 
-            <div class="topbar-divider d-none d-sm-block"></div>
+            <div class="topbar-divider d-none d-sm-block"></div> -->
 
             <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
+            <!-- <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
+              </a> -->
               <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
@@ -324,15 +325,26 @@
 
           </ul>
 
-        </nav>
+        </nav> -->
         <!-- End of Topbar -->
-
+       
+       
         <!-- Begin Page Content -->
-        <div class="container-fluid">
-
+        <div  class="container-fluid">
+        @section('content')
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard <input type="text" id="input"><br><p id="name"></p></h1>
+           
+            <h1 class="h3 mb-0 text-gray-800">Dashboard </h1>
+            
+            <form id="form" method="post" action="{{route('store')}}">
+           @csrf
+                <input  id="email"type="text" name="email" placeholder="email"><br>
+                 <input id="name" name="name"type="text " placeholder="name">
+                <input id="go" type="submit" value="Go">
+           </form>
+
+
             <a href="#" id='test'class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
 
@@ -609,11 +621,13 @@
           </div>
 
         </div>
+        @show
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
 
+      @section('footer')
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -623,6 +637,7 @@
         </div>
       </footer>
       <!-- End of Footer -->
+@show
 
     </div>
     <!-- End of Content Wrapper -->
@@ -672,21 +687,69 @@
   <script src="js/demo/chart-pie-demo.js"></script>
 <script>
 $(document).ready(function(){
+  $('#go').click(function(){
+  $('#form').on('submit', function(event){
+  event.preventDefault(); 
+   $.ajax({
+    url:"{{ route('store') }}",
+    method:"POST",
+    data: new FormData(this),
+    contentType: false,
+    cache:false,
+    processData: false,
+    dataType:"json",
+    success:function(data)
+    {
+     var html = '';
+     if(data.errors)
+     {
+      html = '<div class="alert alert-danger">';
+      for(var count = 0; count < data.errors.length; count++)
+      {
+       html += '<p>' + data.errors[count] + '</p>';
+      }
+      html += '</div>';
+     }
+     if(data.success)
+     {
+      html = '<div class="alert alert-success">' + data.success + '</div>';
+      $('#sample_form')[0].reset();
+      $('#user_table').DataTable().ajax.reload();
+     }
+     $('#form_result').html(html);
+    }
+   });});}); 
+      // $('#form').submit(function(e, data, status){
+      // //  $data = response.text();
+      //       alert('record updated');
+        //  var e=$('#email').val();
+        //  var n=$('#name').val();
+        //   $.post('{{route("store")}}',{
+        //   email: e,
+        //   name: n
+        //   }, function(x,data, status){
+        //   alert(data);//$('#name').html(data);
+   //x.preventDefault();
+  //  });
+      
+  //      });
+  });
+
+  //
   // $('#test').click(function(){
-  //   $.get('../resources/views/404.blade.php', function(data, status){
-  //     $('#para').text(data);
+  
+
+  // });
+  // $('#input').keyup(function(){
+  //   name = $('#input').val(); 
+  //   $.post('../app/User.php',{
+  //     s: name
+  //   }, function(data, status){
+  //      $('#name').html(data);
+       
   //  });
   // });
-  $('#input').keyup(function(){
-    name = $('#input').val(); 
-    $.post('../app/name.php',{
-      s: name
-    }, function(data, status){
-       $('#name').html(data);
-       
-   });
-  });
-});
+//});
 </script>
 </body>
 
