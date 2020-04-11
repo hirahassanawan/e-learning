@@ -56,8 +56,7 @@ Route::get('/register1', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('store', 'TeacherController@store')->name('store');
 Route::get('profile', 'TeacherController@index');
+Route::post('update', 'TeacherController@update')->name('update');
 Route::get('course', 'CourseController@index');
 Route::post('newcourse', 'CourseController@store')->name('store');
-Route::post('update', 'TeacherController@update')->name('update');
-Auth::routes();
 

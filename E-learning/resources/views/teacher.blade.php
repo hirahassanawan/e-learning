@@ -1,16 +1,17 @@
+
 @extends('index')
      @section('content')
 
 <!-- Begin Page Content -->
 <input type="hidden" id="data" value='{{$data}}'>
-<div style="margin-top:2%"; class="container-fluid">
+<div  style="margin-top:2%"; class="container-fluid"><div id="profiledata" >
   @foreach($data as $row)
-  <div id="profiledata" class="row">     
+  <div  class="row">     
   <div class="col-md-4"><img class="responsive"style="height:300px; width:300px" id="img"src="{{URL::asset($row->image)}}" alt="image"></div>
        <div class="col-md-6" >
-         <h2 style="color:#000000" >{{$row->firstname.' '.$row->lastname}}</h2>
+         <h2 id="name" style="color:#000000" >{{$row->firstname.' '.$row->lastname}}</h2>
          <h5 style="size:4%; color:#0000FF " >{{$row->title}}</h5>
-        <h6 style="color:#000000" >{{$row->bio}}</h6> <br><p>{{$row->email}}</p>
+        <h6 id='bio'style="color:#000000" >{{$row->bio}}</h6> <br><p id='mail' >{{$row->email}}</p>
         <a href="#">
          <i style=" color:#000000 " class="fab fa-facebook-f"></i>
         </a>
@@ -27,7 +28,7 @@
 
       </div>
   </div>
-  @endforeach
+  @endforeach </div>
 </div>
 
 <!-- Large modal -->
@@ -63,6 +64,7 @@
 </div>
 
 @endsection
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -89,8 +91,11 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    { alert(data.firstname);
-      location.reload(true);
+    { alert('data added successfully');
+      $("#name").text(data.firstname+' '+data.lastname);
+      $("#bio").text(data.bio);
+      $("#mail").text(data.email); var img = '/cerd-newproject/E-Learning/img/'+data.teacherid+'.jpg';
+      $("#img").attr('src',img);
     //$('#fname').trigger('reset');
      
      var html = '';
