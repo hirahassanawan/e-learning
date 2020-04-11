@@ -14,16 +14,13 @@
  Route::get('/', function () {
      return view('welcome');
  });
- Route::get('/404', function () {
-    return view('404');
-});
 
 Route::get('/buttons', function () {
     return view('buttons');
 });
 
-Route::get('/cards', function () {
-    return view('cards');
+Route::get('/addcourse', function () {
+    return view('addcourse');
 });
 Route::get('/charts', function () {
     return view('charts');
@@ -54,9 +51,13 @@ Route::get('/register1', function () {
     return view('register1');
 });
 
+
  Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('store', 'TeacherController@store')->name('store');
-Route::get('/profile', 'TeacherController@index');
+Route::get('profile', 'TeacherController@index');
+Route::get('course', 'CourseController@index');
+Route::post('newcourse', 'CourseController@store')->name('store');
+Route::post('update', 'TeacherController@update')->name('update');
 Auth::routes();
 

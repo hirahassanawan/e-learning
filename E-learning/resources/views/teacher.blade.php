@@ -2,34 +2,33 @@
      @section('content')
 
 <!-- Begin Page Content -->
-
+<input type="hidden" id="data" value='{{$data}}'>
 <div style="margin-top:2%"; class="container-fluid">
   @foreach($data as $row)
-  <div class="row">     
-  <div class="col-md-4"><img class="responsive"style="height:300px; width:300px" src="{{URL::asset($row->image)}}" alt="image"></div>
+  <div id="profiledata" class="row">     
+  <div class="col-md-4"><img class="responsive"style="height:300px; width:300px" id="img"src="{{URL::asset($row->image)}}" alt="image"></div>
        <div class="col-md-6" >
          <h2 style="color:#000000" >{{$row->firstname.' '.$row->lastname}}</h2>
-         <h5 style="size:4%; color:#fc0341 " >{{$row->title}}</h5>
+         <h5 style="size:4%; color:#0000FF " >{{$row->title}}</h5>
         <h6 style="color:#000000" >{{$row->bio}}</h6> <br><p>{{$row->email}}</p>
         <a href="#">
-         <i style=" color:#fc0341 " class="fab fa-facebook-f"></i>
+         <i style=" color:#000000 " class="fab fa-facebook-f"></i>
         </a>
         <a href="#">
-        <i style=" color:#fc0341 " class="fab fa-google fa-fw"></i>
+        <i style=" color:#000000 " class="fab fa-google fa-fw"></i>
         </a>
         <a href="#">
-        <i style=" color:#fc0341 "  class="fab fa-linkedin-in"></i>
+        <i style=" color:#000000 "  class="fab fa-linkedin-in"></i>
         </a>
         <a href="#">
-        <i style=" color:#fc0341 "class="fas fa-globe"></i>
+        <i style=" color:#000000 "class="fas fa-globe"></i>
         </a><br><br> 
-        <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Edit profile</button>
+        <button  class="btn btn-dark btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Edit profile</button>
 
       </div>
   </div>
   @endforeach
 </div>
-
 
 <!-- Large modal -->
 
@@ -37,15 +36,26 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div style=" padding:5% "class="container "> 
-        <form action="" method="post" enctype="multipart/form-data">
-        <h5 style="color:#000000" >Edit Profile</h5>  
+        <form id="editform" action="{{ route('update') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        <h2 style="color:#0000FF" >Edit Profile</h2>  
         <div  class="row"> 
-            <input  style="margin:10px 10px 10px 10px" type="text " id="fname" name="fname" placeholder="First name"class="form-control col-md-5">
-            <input  style="margin:10px 10px 10px 10px" type="text " id="lname" name="lname" placeholder="last name"class="form-control col-md-5">
-            <input style="margin:10px 10px 10px 10px" type="email " id="email" name="email" placeholder="Email"class="form-control col-md-4">
-            <input  style="margin:10px 10px 10px 10px" type="text " id="bio" name="bio" placeholder="About"class="form-control col-md-7">
+        @foreach($data as $row)
+        <input type="hidden" name='id' value="{{$row->teacherid}}">
+            <h5 style="margin:10px 10px 10px 10px;color:#000000" >First name</h5>  
+            <input  style="margin:10px 10px 10px 10px" type="text " id="fname" name="fname" value="{{$row->firstname}}"class="form-control col-md-3">
+            <h5 style="margin:10px 10px 10px 10px;color:#000000" >Last name</h5>  
+            <input  style="margin:10px 10px 10px 10px" type="text " id="lname" name="lname" value="{{$row->lastname}}"class="form-control col-md-4">
+            <h5 style="margin:10px 10px 10px 10px;color:#000000" >Email</h5>     
+            <input style="margin:10px 10px 10px 10px" type="email " id="email" name="email" value="{{$row->email}}"class="form-control col-md-5">
+            <h5 style="margin:10px 10px 10px 10px;color:#000000" >Title</h5>     
+            <input style="margin:10px 10px 10px 10px" type="text " id="title" name="title" value="{{$row->title}}"class="form-control col-md-4">
+            <h5 style="margin:10px 10px 10px 10px;color:#000000" >About</h5>     
+            <input  style="margin:10px 10px 10px 10px" type="text " id="bio" name="bio" value="{{$row->bio}}"class="form-control col-md-10">
+            <h5 style="margin:10px 10px 10px 10px;color:#000000" >Image</h5>    
             <input  style="margin:10px 10px 10px 10px" type="file" id="image" name="image">
-          </div> <input  type="submit" id="submit" name="submit" class="btn btn-danger ">
+          </div> <input  style="margin:10px 10px 10px 10px" type="submit" id="edit" name="edit" class="btn btn-primary ">
+        @endforeach
         </form>
       </div>
     </div>
@@ -63,6 +73,48 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 
+  <script>
+$(document).ready(function(){
+
+
+  $('#edit').click(function(){
+  $('#editform').on('submit', function(event){
+  event.preventDefault(); 
+   $.ajax({
+    url:"{{ route('update') }}",
+    method:"POST",
+    data: new FormData(this),
+    contentType: false,
+    cache:false,
+    processData: false,
+    dataType:"json",
+    success:function(data)
+    { alert(data.firstname);
+      location.reload(true);
+    //$('#fname').trigger('reset');
+     
+     var html = '';
+     if(data.errors)
+     {
+      html = '<div class="alert alert-danger">';
+      for(var count = 0; count < data.errors.length; count++)
+      {
+       html += '<p>' + data.errors[count] + '</p>';
+      }
+      html += '</div>';
+     }
+     if(data.success)
+     {
+      html = '<div class="alert alert-success">' + data.success + '</div>';
+      $('#sample_form')[0].reset();
+      $('#user_table').DataTable().ajax.reload();
+     }
+     $('#form_result').html(html);
+    }
+   });});});
+    
+  });
+</script>
 </body>
 
 </html>
