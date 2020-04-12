@@ -19,9 +19,6 @@ Route::get('/buttons', function () {
     return view('buttons');
 });
 
-Route::get('/addcourse', function () {
-    return view('addcourse');
-});
 Route::get('/charts', function () {
     return view('charts');
 });
@@ -58,5 +55,10 @@ Route::post('store', 'TeacherController@store')->name('store');
 Route::get('profile', 'TeacherController@index');
 Route::post('update', 'TeacherController@update')->name('update');
 Route::get('course', 'CourseController@index');
-Route::post('newcourse', 'CourseController@store')->name('store');
+Route::post('newcourse', 'CourseController@store')->name('newcourse');
+Route::get('addcourse', 'CourseController@show')->name('show');
+Route::post('subcatshow', 'CourseController@subcatshow')->name('subcatshow');
+Route::post('prdshow', 'CourseController@prdshow')->name('prdshow');
+Route::post('delete', 'CourseController@destroy')->name('delete');
+Route::get('detail', 'CourseController@detail')->name('detail');
 

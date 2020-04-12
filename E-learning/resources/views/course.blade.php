@@ -2,45 +2,25 @@
      @section('content')
 
 <!-- Begin Page Content -->
-<div id="course"style="display:block;margin-top:2%" class="container-fluid">
+<div id="course" style="display:block;margin-top:2%" class="container-fluid">
 <div class="row">
 @foreach($data as $row)
+<span type='hidden'  id="span" value="{{$row->courseid}}" >
 <div class="card " style="margin-left:50px;width: 18rem;">
   <img class="card-img-top responsive" src="{{asset($row->image)}}" alt="course image">
   <div class="card-body">
     <h4 style="color:#000000" class="card-title">{{$row->name}}</h4>
     <p class="card-text">{{$row->desc}}</p>
-    <a href="#" class="btn btn-dark btn-sm">show more</a>
+    <a href="{{route('detail',['id'=>$row->courseid])}}" class="btn btn-dark btn-sm">show more</a>
+    <button type="submit" id='{{$row->courseid}}' class="btn btn-danger"><i class="fa fa-trash-alt" ></i></button>
   </div>
-</div>
+</div></span>
 @endforeach
 </div>
-</div>
+</div>{{ csrf_field() }}
 
 
-<div id="addcourse" style="display:none;margin-top:2%" class="container-fluid">
-<div class="row">
-hellow world
-</div>
-</div>
 
-
-<!-- Large modal -->
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div style=" padding:5% "class="container "> 
-        <form id="editform" action="{{ route('update') }}" method="post" enctype="multipart/form-data">
-        @csrf
-        <h2 style="color:#0000FF" >Edit Profile</h2>  
-        <div  class="row"> 
-       
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 @endsection
   <!-- Bootstrap core JavaScript-->
@@ -56,6 +36,27 @@ hellow world
   <script>
 $(document).ready(function(){
 
+  $('button').click(function(event){
+    event.preventDefault(); 
+    var select = $(this).attr("id");
+   var value = $(this).val();
+   var courseid = $(this).attr('id'); 
+    alert("are you sure you want to delete this course?");
+    $(this).parent().parent().remove();
+   var _token = $('input[name="_token"]').val();
+   $.ajax({
+    url:"{{ route('delete') }}",
+    method:"POST",
+    data:{courseid:courseid, _token:_token,},
+    success:function(data)
+    { // alert(data);
+     //$('span').val(data);.remove();
+     
+     //$(this).parent().remove();
+    
+     
+    }
+   });});
 
   });
 </script>

@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-class Course extends Model
+
+class language extends Model
 {
-    protected $primaryKey = 'courseid';
+    //
 }

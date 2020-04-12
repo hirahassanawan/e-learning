@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Teacher;
+use App\category;
+use App\subcategory;
+use App\product;
 class TeacherController extends Controller
 {
     /**
@@ -47,9 +50,9 @@ class TeacherController extends Controller
         $teacher->save();
         $lastid = teacher::last()->select('teacherid')->get();
         $imgname = $lastid. '.' . $img->getClientOriginalExtension() ;
-        $imgpath = public_path('/img/');
+        $imgpath = '/img/';
         $img->move($imgpath, $imgname);
-        $image= 'http://localhost/cerd-newproject/E-learning/resources/img/' . $imgname;
+        $image= 'http://localhost/cerd-newproject/E-learning/img/' . $imgname;
         $teacher->update(['image' => $image]);
         return response()->json(['success'=>'data added succesfully']); 
     }
