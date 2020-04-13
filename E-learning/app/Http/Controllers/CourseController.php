@@ -8,6 +8,8 @@ use App\product;
 use App\language;
 use App\requirement;
 use App\level;
+use App\topic;
+use App\assignment;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -19,7 +21,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $course = Course::get();
+        $course = Course::where('teacherid',1)->get();
         return view('course',['data'=>$course,]);
     }
 
@@ -139,7 +141,28 @@ class CourseController extends Controller
 
 
         public function detail(){
-            return view('coursedetail');
+            $id = request()->query('id');
+            $course = course::where('courseid',$id)->first();
+            $course->level;
+            $course->level;
+            $course->requirement;
+            $course->teacher;
+            $course->language;
+            $course->chapter;
+            foreach($course['chapter'] as $i){
+               $i->topic;
+            }
+           //dd($course['chapter'][0]->topic);
+            return view('coursedetail',['data'=>$course]);
+        }
+
+        public function assignment(){
+          
+            $assign = assignment::get();
+            $course = course::where('teacherid',1)->get();
+          $topic = topic::all();
+           //dd($course);
+            return view('assignment',['data'=>$assign,'topic'=>$topic,'course'=>$course]);
         }
 
 }

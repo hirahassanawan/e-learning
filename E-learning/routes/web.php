@@ -41,8 +41,8 @@ Route::get('/border', function () {
 Route::get('/color', function () {
     return view('utilities-color');
 });
-Route::get('/other', function () {
-    return view('utilities-other');
+Route::get('/cards', function () {
+    return view('cards');
 });
 Route::get('/register1', function () {
     return view('register1');
@@ -61,4 +61,5 @@ Route::post('subcatshow', 'CourseController@subcatshow')->name('subcatshow');
 Route::post('prdshow', 'CourseController@prdshow')->name('prdshow');
 Route::post('delete', 'CourseController@destroy')->name('delete');
 Route::get('detail', 'CourseController@detail')->name('detail');
+Route::get('assignment', 'CourseController@assignment')->name('assignment');
 

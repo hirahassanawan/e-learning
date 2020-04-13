@@ -50,21 +50,21 @@
                     </select>
                     
                    
-                    <select name="cat" id="cat" class="categorylist col-md-5" style="margin:10px 10px 10px 10px">
+                    <select name="cat" id="cat" class="categorylist col-md-4" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Select Category</option>
                         @foreach ($cat as $row)
                         <option id="" name="" value="{{$row->catid}}">
                             {{$row->type}}
                         </option>
                         @endforeach
-                        </option>
+                        
                     </select>
-                    <select name="subcat" id="subcat" class="subcategorylist col-md-5" style="margin:10px 10px 10px 10px">
+                    <select name="subcat" id="subcat" class="subcategorylist col-md-3" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Select subcategory</option>
                        
                         </option>
                     </select>
-                    <select name="product" id="product" class=" col-md-6" style="margin:10px 10px 10px 10px">
+                    <select name="product" id="product" class=" col-md-4" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Select product</option>
                         </option>
                     </select>{{ csrf_field() }}

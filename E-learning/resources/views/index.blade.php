@@ -1,4 +1,4 @@
-@section('css')
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +24,6 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -64,26 +63,28 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="course">Course list</a>
             <a class="collapse-item" href="addcourse">Add courses</a>
+            <a class="collapse-item" href="assignment">Assignments</a>
           </div>
         </div>  
       </li>
 
+     
+
       <!-- Nav Item - Utilities Collapse Menu -->
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
           <span>Utilities</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="color">Colors</a>
-            <a class="collapse-item" href="border">Borders</a>
-            <a class="collapse-item" href="animation">Animations</a>
-            <a class="collapse-item" href="other">Other</a>
+            <h6 class="collapse-header">Comunication</h6>
+            <a class="collapse-item" href="color">Reviews</a>
+            <a class="collapse-item" href="border">Messeges</a>
+            <a class="collapse-item" href="animation">Resources</a>
           </div>
         </div>
-      </li> -->
+      </li>
 
       <!-- Divider -->
       <!-- <hr class="sidebar-divider"> -->
@@ -332,10 +333,10 @@
         </nav>
         <!-- End of Topbar -->
        
-       
+        @section('content')
         <!-- Begin Page Content -->
         <div  class="container-fluid">
-        @section('content')
+       
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
            
@@ -641,14 +642,14 @@
         </div>
       </footer>
       <!-- End of Footer -->
-@show
+
 
     </div>
     <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->
-
+  
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
@@ -672,7 +673,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
