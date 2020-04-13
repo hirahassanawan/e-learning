@@ -5,7 +5,7 @@
 <div style="display:block;margin-top:2%" class="container-fluid">
   <div class="row">
   
-   <div class="card shadow col-md-12">
+   <div class="card shadow col-md-13">
             <div class="card-header py-3">
               <h1 class="m-0 font-weight-bold text-primary">Assignments</h1>
               <button style="margin-left:80%" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
@@ -17,25 +17,29 @@
             <!-- Button trigger modal -->
 
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>File</th>
+                      <th>Duedate</th>
+                      <th>Course</th>
+                      <th>Chapter</th>
                       <th>Topic</th>
-                      <th>Due</th>
+                      <th>File</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                   @foreach($data as $row)
                     <tr>
-                      <td>{{$row->name}}</td>
-                      <td>{{$row->file}}</td>
+                      <td>{{$row->assignment}}</td>
+                      <td>{{$row->course}}</td>
+                      <td>{{$row->chapter}}</td>
+                      <td>{{$row->topic}}</td>
                       <td>{{$row->duedate}}</td>
-                     
-                      <td><a href="" class="btn-danger btn-sm"><i title="delete" class="fa fa-trash-alt"></i></a>
-                      <a href="" class="btn-success btn-sm"><i  title="edit" class="fa fa-edit"></i></a>
+                      <td>{{$row->file}}</td>
+                      <td><a href="" ><i title="delete"style="color:red" class="fa fa-trash-alt"></i></a>
+                      <a href=""><i  title="edit"style="margin:5px;color:green" class="fa fa-edit"></i></a>
                       </td>
                     </tr>
                     @endforeach

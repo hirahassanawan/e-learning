@@ -342,12 +342,6 @@
            
             <h1 class="h3 mb-0 text-gray-800">Dashboard </h1>
             
-            <form id="form" method="post" action="{{route('store')}}">
-           @csrf
-                <input  id="email"type="text" name="email" placeholder="email"><br>
-                 <input id="name" name="name"type="text " placeholder="name">
-                <input id="go" type="submit" value="Go">
-           </form>
 
 
             <a href="#" id='test'class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>

@@ -54,7 +54,7 @@ class TeacherController extends Controller
         $imgname = $lastid. '.' . $img->getClientOriginalExtension() ;
         $imgpath = '/img/';
         $img->move($imgpath, $imgname);
-        $image= 'http://localhost/cerd-newproject/E-learning/img/' . $imgname;
+        $image= 'http://localhost/cerd-newproject/e-learning/E-learning/img/' . $imgname;
         $teacher->update(['image' => $image]);
         return response()->json(['success'=>'data added succesfully']); 
     }
@@ -107,8 +107,8 @@ class TeacherController extends Controller
                 return response()->json($teacher);  }
         else{
         $imgname =$id. '.' . $img->getClientOriginalExtension() ;
-        $img->move('C:/xampp/htdocs/cerd-newproject/E-learning/img/', $imgname);
-        $image= 'http://localhost/cerd-newproject/E-learning/img/' . $imgname;
+        $img->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/img/', $imgname);
+        $image= 'http://localhost/cerd-newproject/e-learning/E-learning/img/' . $imgname;
       
         $teacher->update([ 
         'firstname'=>$fname,

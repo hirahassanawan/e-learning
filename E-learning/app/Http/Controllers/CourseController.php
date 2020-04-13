@@ -51,13 +51,13 @@ class CourseController extends Controller
 
        $img =$request->file('image');
        $imgname = $request->name. '.' . $img->getClientOriginalExtension() ;
-       $img->move('C:/xampp/htdocs/cerd-newproject/E-learning/img/', $imgname);
-       $image= 'http://localhost/cerd-newproject/E-learning/img/' . $imgname;
+       $img->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/img/', $imgname);
+       $image= 'http://localhost/cerd-newproject/e-learning/E-learning/img/' . $imgname;
        $course->image = $image;
        $vid =$request->file('video');
        $vidname = $request->name. '.' . $vid->getClientOriginalExtension() ;
-       $vid->move('C:/xampp/htdocs/cerd-newproject/E-learning/video/', $vidname);
-       $video= 'http://localhost/cerd-newproject/E-learning/video/' . $vidname;
+       $vid->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/video/', $vidname);
+       $video= 'http://localhost/cerd-newproject/e-learning/E-learning/video/' . $vidname;
        $course->introclip = $video;
 
        $course->langid = $request->lang;
@@ -159,7 +159,10 @@ class CourseController extends Controller
 
         public function assignment(){
           
-            $assign = assignment::get();
+            $assign = assignment::join('topics','assignments.topicid','=','topics.topicid')
+            ->join('chapters','topics.chapid','=','chapters.chapid')
+            ->join('courses','chapters.courseid','=','courses.courseid')
+            ->select('assignments.name as assignment','topics.name as topic','file','duedate','courses.name as course','chapters.name as chapter')->get();
             $course = course::where('teacherid',1)->get();
           $topic = topic::all(); 
            //dd($course); 
@@ -189,8 +192,8 @@ class CourseController extends Controller
                 
                 $f =$request->file('file');
                 $fname = time(). '.' . $f->getClientOriginalExtension() ;
-                $f->move('C:/xampp/htdocs/cerd-newproject/E-learning/', $fname);
-                $file= 'http://localhost/cerd-newproject/E-learning/' . $fname;
+                $f->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/', $fname);
+                $file= 'http://localhost/cerd-newproject/e-learning/E-learning/' . $fname;
                 $assign->file =$file;
                 $assign->save();
                 //dd($f);
