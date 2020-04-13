@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Course;
 use App\category;
+use App\chapter;
 use App\subcategory;
 use App\product;
 use App\language;
@@ -160,9 +161,40 @@ class CourseController extends Controller
           
             $assign = assignment::get();
             $course = course::where('teacherid',1)->get();
-          $topic = topic::all();
-           //dd($course);
+          $topic = topic::all(); 
+           //dd($course); 
             return view('assignment',['data'=>$assign,'topic'=>$topic,'course'=>$course]);
         }
+
+
+        public function topicshow(){
+            $id = request()->query('id');
+            $chap = chapter::where('courseid',$id)->get();
+          
+            foreach($chap as $key => $id){
+                $topic = topic::where('chapid',$id['chapid'])->pluck('name');
+            
+         //   $topic = topic::where('chapid',$chap[0])->pluck('name');
+           // return dd($id);
+            return response()->json($topic);}
+            }
+
+            public function storeassign(Request $request){
+             
+                $assign = new assignment();
+                $assign->name = $request->name;
+                $assign->duedate = $request->due;
+                $topicid  = topic::where('name',$request->topic)->pluck('topicid'); 
+                $assign->topicid =$topicid[0];
+                
+                $f =$request->file('file');
+                $fname = time(). '.' . $f->getClientOriginalExtension() ;
+                $f->move('C:/xampp/htdocs/cerd-newproject/E-learning/', $fname);
+                $file= 'http://localhost/cerd-newproject/E-learning/' . $fname;
+                $assign->file =$file;
+                $assign->save();
+                //dd($f);
+                return response()->json(['success'=>'data added successfully']);
+            }
 
 }

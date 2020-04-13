@@ -2,7 +2,7 @@
      @section('content')
 
 <!-- Begin Page Content -->
-<div id="course" style="display:block;margin-top:2%" class="container-fluid">
+<div style="display:block;margin-top:2%" class="container-fluid">
   <div class="row">
   
    <div class="card shadow col-md-12">
@@ -31,9 +31,9 @@
                   @foreach($data as $row)
                     <tr>
                       <td>{{$row->name}}</td>
-                      <td>Junior Technical Author</td>
-                      <td>San Francisco</td>
-                      <td>66</td>
+                      <td>{{$row->file}}</td>
+                      <td>{{$row->duedate}}</td>
+                     
                       <td><a href="" class="btn-danger btn-sm"><i title="delete" class="fa fa-trash-alt"></i></a>
                       <a href="" class="btn-success btn-sm"><i  title="edit" class="fa fa-edit"></i></a>
                       </td>
@@ -60,11 +60,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
+        <form enctype="multipart/form-data"action="{{ route('storeassign') }}" id="assignform" method="post">
         @csrf <div class="row">
            <input  style="margin:10px 10px 10px 10px" type="text " id="name" name="name" value="Name"class="form-control col-md-5"> 
-           <input  style="margin:10px 10px 10px 10px" type="text " id="content" name="content" value="content" class="form-control col-md-5">
-           <select style="margin:10px 10px 10px 10px" name="course" id="course">
+           <input  style="margin:10px 10px 10px 10px" type="date " id="due" name="due" value="duedate" class="form-control col-md-5">
+          <select style="margin:10px 10px 10px 10px" name="course" id="course">
           <option value="0" disabled="true" selected="true" class="form-control col-md-5">Select course</option>
             @foreach ($course as $row)
             <option id="" name="" value="{{$row->courseid}}">
@@ -77,7 +77,7 @@
           <option value="">select topic</option>
           </select>  
            <input  style="margin:10px 10px 10px 10px" type="file" id="file" name="file">
-         </div> <button type="submit" class=" btn-primary btn-sm">Add</button>
+         </div> <button type="submit" id="go"class=" btn-primary btn-sm">Add</button>
         </form>
       </div>
     </div>
@@ -99,6 +99,50 @@
   <script>
 $(document).ready(function(){
 
+ 
+
+  $('#course').change(function(){  $('#topic').empty();
+  if($(this).val() != '')
+  {
+   var id= $(this).attr("id");
+   var value = $(this).val();
+   var _token = $('input[name="_token"]').val();
+  // alert(value);
+   $.ajax({
+    url:"{{ route('topicshow') }}",
+    method:"get",
+    data:{ id:value},
+    success:function(data)
+    {
+    // alert(data);   
+
+ for (var i = 0; i < data.length; i++) {
+    $("#topic").append('<option >'+data[i]+'</option>');
+           }
+
+    }
+
+   });
+  }
+ });
+
+
+ $('#go').click(function(){
+  $('#assignform').on('submit', function(event){
+  event.preventDefault(); 
+   $.ajax({
+    url:"{{ route('storeassign') }}",
+    method:"POST",
+    data: new FormData(this),
+    contentType: false,
+    cache:false,
+    processData: false,
+    dataType:"json",
+    success:function(data)
+    {alert(data['success']);
+    
+    }
+   });});}); 
  
   });
 </script>

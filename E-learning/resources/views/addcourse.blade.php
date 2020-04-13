@@ -67,15 +67,15 @@
                     <select name="product" id="product" class=" col-md-4" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Select product</option>
                         </option>
-                    </select>{{ csrf_field() }}
+                    </select>
                     
-                    <h5 style="margin:10px 10px 10px 10px;color:#000000" >Video</h5>     
+                    <h5 style="margin:10px 10px 10px 10px;color:#000000" >Intro Video</h5>     
                     <input  style="margin:10px 10px 10px 10px" type="file" id="video" name="video">
                     <h5 style="margin:10px 10px 10px 10px;color:#000000" >Image</h5>    
                     <input  style="margin:10px 10px 10px 10px" type="file" id="image" name="image">
                 </div> <input  style="margin:10px 10px 10px 10px" type="submit" id="add" name="add" class="btn btn-dark ">
                 </form>
-            </div>
+            </div>{{ csrf_field() }}
         </div>
     </div>
 </div>

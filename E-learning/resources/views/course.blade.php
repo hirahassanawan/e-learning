@@ -44,6 +44,7 @@ $(document).ready(function(){
     alert("are you sure you want to delete this course?");
     $(this).parent().parent().remove();
    var _token = $('input[name="_token"]').val();
+   //alert(_token);
    $.ajax({
     url:"{{ route('delete') }}",
     method:"POST",

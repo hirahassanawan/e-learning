@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\reviewdetail;
+use App\review;
 use App\Teacher;
 use App\category;
 use App\subcategory;
@@ -133,4 +135,16 @@ class TeacherController extends Controller
     {
        
     }
+
+    public function review()
+    {
+        $review = review::where('teacherid',1)->pluck('reviewid');
+        $rdetail = reviewdetail::where('reviewid',$review[0])
+        ->join('students','reviewdetails.studentid','=','students.studentid')->
+        select('firstname','lastname','review','reviewdetails.created_at','rating','image')->get();
+
+       return view('review',['data'=>$rdetail]);
+    }
+
+
 }

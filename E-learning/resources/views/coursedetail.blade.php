@@ -63,7 +63,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="course">Course list</a>
             <a class="collapse-item" href="addcourse">Add courses</a>
-            <a class="collapse-item" href="addcourse">Assignments</a>
+            <a class="collapse-item" href="assignment">Assignments</a>
           </div>
         </div>  
       </li>
@@ -79,7 +79,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Comunication</h6>
-            <a class="collapse-item" href="color">Reviews</a>
+            <a class="collapse-item" href="review">Reviews</a>
             <a class="collapse-item" href="border">Messeges</a>
             <a class="collapse-item" href="animation">Resources</a>
           </div>

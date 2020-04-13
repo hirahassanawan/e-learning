@@ -62,4 +62,6 @@ Route::post('prdshow', 'CourseController@prdshow')->name('prdshow');
 Route::post('delete', 'CourseController@destroy')->name('delete');
 Route::get('detail', 'CourseController@detail')->name('detail');
 Route::get('assignment', 'CourseController@assignment')->name('assignment');
-
+Route::get('topicshow', 'CourseController@topicshow')->name('topicshow');
+Route::post('storeassign', 'CourseController@storeassign')->name('storeassign');
+Route::get('review', 'TeacherController@review')->name('review');
