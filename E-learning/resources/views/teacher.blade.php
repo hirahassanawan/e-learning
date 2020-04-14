@@ -94,8 +94,9 @@ $(document).ready(function(){
     { alert('data added successfully');
       $("#name").text(data.firstname+' '+data.lastname);
       $("#bio").text(data.bio);
+      $("#title").text(data.title);
       $("#mail").text(data.email); 
-      var img = '/cerd-newproject/E-Learning/img/'+data.teacherid+'.jpg';
+      var img = '/cerd-newproject/e-learning/E-Learning/img/'+data.teacherid+'.jpg';
       $("#img").attr('src',img);
     //$('#fname').trigger('reset');
      

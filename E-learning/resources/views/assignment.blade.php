@@ -1,13 +1,15 @@
 @extends('index')
+
+
      @section('content')
 
 <!-- Begin Page Content -->
 <div style="display:block;margin-top:2%" class="container-fluid">
   <div class="row">
   
-   <div class="card shadow col-md-13">
+   <div class="card shadow col-md-12">
             <div class="card-header py-3">
-              <h1 class="m-0 font-weight-bold text-primary">Assignments</h1>
+              <h1 class="m-0 font-weight-bold text-dark" >Assignments</h1>
               <button style="margin-left:80%" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
  Add assignment
 </button>
@@ -32,18 +34,18 @@
                   </thead>
                   <tbody>
                   @foreach($data as $row)
-                    <tr>
+                    <tr id='tabledata'>
                     <td><a href="{{$row->file}}" class="btn btn-warning" ><i title="file"style="color:black" class="fa fa-file-alt"></i></a></td>
                       <td>{{$row->assignment}}</td>
-                      <td>{{$row->course}}</td>
+                      <td >{{$row->course}}</td>
                       <td>{{$row->chapter}}</td>
                       <td>{{$row->topic}}</td>
                       <td>{{$row->duedate}}</td>
                      
-                      <td><span id="del" name="{{$row->assignid}}"><button class=" btn-danger btn-sm" >
-                      <i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></span>
-                      <span id="edit" name="{{$row->assignid}}"><button class=" btn-success btn-sm" >
-                      <i title="edit"style="color:white" class="fa fa-edit"></i></button></span>
+                      <td><spans id="del" name="{{$row->assignid}}"><button class=" btn-danger btn-sm" >
+                      <i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></spans>
+                      <espan id="edit" name="{{$row->assignid}}"><button data-toggle="modal" data-target=".bd-example-modal-sm"class=" btn-success btn-sm" >
+                      <i title="edit"style="color:white" class="fa fa-edit"></i></button></espan>
                       </td>
                     </tr>
                     @endforeach
@@ -92,6 +94,37 @@
   </div>
 </div>
 
+
+
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div style="padding:5%" class="modal-content">
+    <div class="modal-body">
+    <h3 style="color:#000000">Edit </h3>
+        <form enctype="multipart/form-data"action="{{ route('storeassign') }}" id="assignform" method="post">
+        @csrf <div class="row">
+           <input  style="margin:10px 10px 10px 10px" type="text " id="name" name="name" placeholder="Name"class="form-control col-md-5"> 
+           <input  style="margin:10px 10px 10px 10px" type="date " id="due" name="due" placeholder="duedate" class="form-control col-md-5">
+          <select style="margin:10px 10px 10px 10px" name="course" id="course">
+          <option value="0" disabled="true" selected="true" class="form-control col-md-5">Select course</option>
+            @foreach ($course as $row)
+            <option id="" name="" value="{{$row->courseid}}">
+                {{$row->name}}
+            </option>
+            @endforeach
+            </option>
+           </select>
+          <select style="margin:10px 10px 10px 10px" class="form-control col-md-5" name="topic" id="topic">
+          <option value="">select topic</option>
+          </select>  
+           <input  style="margin:10px 10px 10px 10px" type="file" id="file" name="file">
+         </div> <button type="submit" id="editgo"class=" btn-primary btn-sm">Edit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection
   <!-- Bootstrap core JavaScript-->
@@ -147,13 +180,25 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    {alert(data['success']);
-    
+    {
+    var html = '';
+    html += '<tr>';
+    html += '<td contenteditable id="first_name"></td>';
+    html += '<td contenteditable id="last_name"></td>';
+    html += '<td><button type="button" class="btn btn-success btn-xs" id="add">Add</button></td></tr>';
+    for(var count=0; count < data.length; count++)
+    {
+     html +='<tr>';
+     html +='<td contenteditable class="column_name" data-column_name="first_name" data-id="'+data[count].id+'">'+data[count].file+'</td>';
+     html += '<td contenteditable class="column_name" data-column_name="last_name" data-id="'+data[count].id+'">'+data[count].assignment+'</td>';
+     html += '<td><button type="button" class="btn btn-danger btn-xs delete" id="'+data[count].id+'">Delete</button></td></tr>';
     }
+    $('tbody').append(html);
+   }
    });});}); 
  
 //delete assignment
-   $('span').click( function(){
+   $('spans').click( function(){
   var id = $(this).attr('name');
   $(this).parent().parent().remove(); 
   
@@ -163,6 +208,17 @@ $(document).ready(function(){
     data:{id:id},
     success:function(data)
     {alert(data['success']);
+    }
+   });
+   }); 
+   $('espan').click( function(){
+  var id = $(this).attr('name');
+   $.ajax({
+    url:"{{ route('editassign') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert('success');
     }
    });
    }); 

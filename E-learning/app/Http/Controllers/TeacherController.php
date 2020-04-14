@@ -141,10 +141,17 @@ class TeacherController extends Controller
         $review = review::where('teacherid',1)->pluck('reviewid');
         $rdetail = reviewdetail::where('reviewid',$review[0])
         ->join('students','reviewdetails.studentid','=','students.studentid')->
-        select('firstname','lastname','review','reviewdetails.created_at','rating','image')->get();
+        select('firstname','lastname','review','reviewdetails.created_at','rating','image')->Orderby('reviewdetailid','DESC')->paginate(2);
 
        return view('review',['data'=>$rdetail]);
     }
-
+public function dash(){
+    $review = review::where('teacherid',1)->pluck('reviewid');
+    $rdetail = reviewdetail::where('reviewid',$review[0])
+    ->join('students','reviewdetails.studentid','=','students.studentid')->
+    avg('rating');
+   $rating =  round($rdetail,1);
+   return view('dashboard',['rating'=>$rating]);
+} 
 
 }

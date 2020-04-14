@@ -48,7 +48,7 @@ class CourseController extends Controller
        $course->name = $request->name;
        $course->desc = $request->desc;
        $course->content = $request->content;
-
+       $course->teacherid = 1;
        $img =$request->file('image');
        $imgname = $request->name. '.' . $img->getClientOriginalExtension() ;
        $img->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/img/', $imgname);
@@ -198,7 +198,14 @@ class CourseController extends Controller
                 $assign->file =$file;}
                 $assign->save();
                 //dd($f);
-                return response()->json(['success'=>'data added successfully']);
+                $data = ['assignment'=> $request->name,
+                'assignid'=>assignment::last('assignid'),
+                'due'=> $request->due,
+                'topic'=>$request->topic,
+                'file'=> $file,
+                'chapter'=>$request->chapter
+                ];
+                return response()->json($data);
             }
 
             public function delassign()
@@ -206,7 +213,32 @@ class CourseController extends Controller
                 $id = request()->query('id');
                 $assign = assignment::find($id);
                 $assign->delete($assign);
-            return response()->json(['success'=>'data added successfully']);
+            return response()->json(['success'=>'data deleted successfully']);
+            }
+
+            public function editassign(){
+             $id = request()->query('id');
+                $assign = assignment::find($id);
+                $assign->name = $request->name;
+                $assign->duedate = $request->due;
+                $topicid  = topic::where('name',$request->topic)->pluck('topicid'); 
+                $assign->topicid =$topicid[0];
+                
+                $f =$request->file('file');
+                if(!$f == null){
+                $fname = time(). '.' . $f->getClientOriginalExtension() ;
+                $f->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/', $fname);
+                $file= 'http://localhost/cerd-newproject/e-learning/E-learning/' . $fname;
+                $assign->file =$file;}
+                $assign->update();
+                //dd($f);
+                $data = ['assignment'=> $request->name,
+                'due'=> $request->due,
+                'topic'=>$request->topic,
+                'file'=> $file,
+                'chapter'=>$request->chapter
+                ];
+                return response()->json($data);
             }
 
 }

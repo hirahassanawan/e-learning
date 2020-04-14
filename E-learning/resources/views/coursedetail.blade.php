@@ -71,20 +71,7 @@
      
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Comunication</h6>
-            <a class="collapse-item" href="review">Reviews</a>
-            <a class="collapse-item" href="border">Messeges</a>
-            <a class="collapse-item" href="animation">Resources</a>
-          </div>
-        </div>
-      </li>
+     
 
       <!-- Divider -->
       <!-- <hr class="sidebar-divider"> -->
@@ -114,6 +101,11 @@
         </div>
       </li> -->
       <li class="nav-item">
+        <a class="nav-link" href="review">
+          <i class="fas fa-comment"></i>
+          <span>Reviews</span></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="profile">
           <i class="fas fa-user"></i>
           <span>Profile</span></a>
@@ -122,7 +114,7 @@
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="course">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-list-alt"></i>
           <span>Course list</span></a>
       </li>
 
@@ -340,7 +332,7 @@
 <video style="margin-left:240px" width="600" controls>
   <source src="{{$data['introclip']}}" type="video/mp4">
   Your browser does not support HTML5 video.
-</video>
+</video> <button style="margin: 10px 10px 10px 10px" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary btn-sm">Add chapter</button>
 
 
       <div class="card shadow mb-4">
@@ -351,7 +343,7 @@
         </div>
       </div>
 
-
+    
  <!-- Collapsable Card Example -->
  @foreach($data['chapter'] as $row)
  <div class="card shadow mb-4">
@@ -369,6 +361,27 @@
                 </div>
               </div>
 @endforeach
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      <h3 style="color:#000000">Add chapter</h3>
+        <form enctype="multipart/form-data"action="{{ route('storeassign') }}" id="chapterform" method="post">
+        @csrf <div class="row">
+        <input type="hidden" value='{{$data->courseid}}'>
+           <input  style="margin:10px 10px 10px 10px" type="text " id="name" name="name" placeholder="Name"class="form-control col-md-5"> 
+           <input  style="margin:10px 10px 10px 10px" type="text " id="content" name="content" placeholder="Content" class="form-control col-md-5">
+         </div> <button type="submit" id="addchap"class=" btn-primary btn-sm">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
       </div>
         <!-- /.container-fluid -->

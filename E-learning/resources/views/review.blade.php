@@ -38,7 +38,7 @@
                       </div>
                   </div><hr>
                 @endforeach
-
+                 <div style="margin-left:5%"> {{$data->links()}} </div>
 </div>
     
 @endsection

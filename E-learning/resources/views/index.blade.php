@@ -40,7 +40,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item ">
-        <a class="nav-link" href="index">
+        <a class="nav-link" href="dash">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -71,20 +71,7 @@
      
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Comunication</h6>
-            <a class="collapse-item" href="review">Reviews</a>
-            <a class="collapse-item" href="border">Messeges</a>
-            <a class="collapse-item" href="animation">Resources</a>
-          </div>
-        </div>
-      </li>
+     
 
       <!-- Divider -->
       <!-- <hr class="sidebar-divider"> -->
@@ -114,6 +101,11 @@
         </div>
       </li> -->
       <li class="nav-item">
+        <a class="nav-link" href="review">
+          <i class="fas fa-comment"></i>
+          <span>Reviews</span></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="profile">
           <i class="fas fa-user"></i>
           <span>Profile</span></a>
@@ -122,7 +114,7 @@
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="course">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-list-alt"></i>
           <span>Course list</span></a>
       </li>
 
@@ -416,12 +408,10 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Average Ratings</div>
+                      
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
+                   
                   </div>
                 </div>
               </div>
