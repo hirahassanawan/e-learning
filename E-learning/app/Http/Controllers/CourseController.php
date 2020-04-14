@@ -162,7 +162,7 @@ class CourseController extends Controller
             $assign = assignment::join('topics','assignments.topicid','=','topics.topicid')
             ->join('chapters','topics.chapid','=','chapters.chapid')
             ->join('courses','chapters.courseid','=','courses.courseid')
-            ->select('assignments.name as assignment','topics.name as topic','file','duedate','courses.name as course','chapters.name as chapter')->get();
+            ->select('assignments.assignid','assignments.name as assignment','topics.name as topic','file','duedate','courses.name as course','chapters.name as chapter')->get();
             $course = course::where('teacherid',1)->get();
           $topic = topic::all(); 
            //dd($course); 
@@ -191,13 +191,22 @@ class CourseController extends Controller
                 $assign->topicid =$topicid[0];
                 
                 $f =$request->file('file');
+                if(!$f == null){
                 $fname = time(). '.' . $f->getClientOriginalExtension() ;
                 $f->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/', $fname);
                 $file= 'http://localhost/cerd-newproject/e-learning/E-learning/' . $fname;
-                $assign->file =$file;
+                $assign->file =$file;}
                 $assign->save();
                 //dd($f);
                 return response()->json(['success'=>'data added successfully']);
+            }
+
+            public function delassign()
+            {
+                $id = request()->query('id');
+                $assign = assignment::find($id);
+                $assign->delete($assign);
+            return response()->json(['success'=>'data added successfully']);
             }
 
 }

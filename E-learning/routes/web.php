@@ -65,3 +65,4 @@ Route::get('assignment', 'CourseController@assignment')->name('assignment');
 Route::get('topicshow', 'CourseController@topicshow')->name('topicshow');
 Route::post('storeassign', 'CourseController@storeassign')->name('storeassign');
 Route::get('review', 'TeacherController@review')->name('review');
+Route::get('delassign', 'CourseController@delassign')->name('delassign');

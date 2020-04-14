@@ -20,26 +20,30 @@
                 <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
                   <thead>
                     <tr>
+                    <th>File</th>
                       <th>Name</th>
-                      <th>Duedate</th>
                       <th>Course</th>
                       <th>Chapter</th>
                       <th>Topic</th>
-                      <th>File</th>
+                      <th>Duedate</th>
+                      
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                   @foreach($data as $row)
                     <tr>
+                    <td><a href="{{$row->file}}" class="btn btn-warning" ><i title="file"style="color:black" class="fa fa-file-alt"></i></a></td>
                       <td>{{$row->assignment}}</td>
                       <td>{{$row->course}}</td>
                       <td>{{$row->chapter}}</td>
                       <td>{{$row->topic}}</td>
                       <td>{{$row->duedate}}</td>
-                      <td>{{$row->file}}</td>
-                      <td><a href="" ><i title="delete"style="color:red" class="fa fa-trash-alt"></i></a>
-                      <a href=""><i  title="edit"style="margin:5px;color:green" class="fa fa-edit"></i></a>
+                     
+                      <td><span id="del" name="{{$row->assignid}}"><button class=" btn-danger btn-sm" >
+                      <i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></span>
+                      <span id="edit" name="{{$row->assignid}}"><button class=" btn-success btn-sm" >
+                      <i title="edit"style="color:white" class="fa fa-edit"></i></button></span>
                       </td>
                     </tr>
                     @endforeach
@@ -66,8 +70,8 @@
       <div class="modal-body">
         <form enctype="multipart/form-data"action="{{ route('storeassign') }}" id="assignform" method="post">
         @csrf <div class="row">
-           <input  style="margin:10px 10px 10px 10px" type="text " id="name" name="name" value="Name"class="form-control col-md-5"> 
-           <input  style="margin:10px 10px 10px 10px" type="date " id="due" name="due" value="duedate" class="form-control col-md-5">
+           <input  style="margin:10px 10px 10px 10px" type="text " id="name" name="name" placeholder="Name"class="form-control col-md-5"> 
+           <input  style="margin:10px 10px 10px 10px" type="date " id="due" name="due" placeholder="duedate" class="form-control col-md-5">
           <select style="margin:10px 10px 10px 10px" name="course" id="course">
           <option value="0" disabled="true" selected="true" class="form-control col-md-5">Select course</option>
             @foreach ($course as $row)
@@ -148,6 +152,22 @@ $(document).ready(function(){
     }
    });});}); 
  
+//delete assignment
+   $('span').click( function(){
+  var id = $(this).attr('name');
+  $(this).parent().parent().remove(); 
+  
+   $.ajax({
+    url:"{{ route('delassign') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert(data['success']);
+    }
+   });
+   }); 
+ 
+
   });
 </script>
 </body>
