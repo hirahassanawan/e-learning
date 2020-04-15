@@ -327,7 +327,7 @@
        
       
         <!-- Begin Page Content -->
-        <div style="background-image: url('{{$data['image']}}');background-size: cover;
+        <div style="padding-bottom:5%;background-image: url('{{$data['image']}}');background-size: cover;
 }" class="container-fluid">
 <video style="margin-left:240px" width="600" controls>
   <source src="{{$data['introclip']}}" type="video/mp4">
@@ -345,22 +345,22 @@
 
     
  <!-- Collapsable Card Example -->
- @foreach($data['chapter'] as $row)
- <div class="card shadow mb-4">
+ 
+ <div id="card"class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
-                
-                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                @foreach($data['chapter'] as $row)
+                <a href="#collapse{{$row->chapid}}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
                   <h6  class="m-0 font-weight-bold text-primary">{{$row->name}}</h6>
                 </a>
                 <!-- Card Content - Collapse -->
-                <div class="collapse show" id="collapseCardExample">
+                <div class="collapse show" id="collapse{{$row->chapid}}">
                   <div class="card-body">
                   {{$row->desc}} <br>
-                   <a href="" class=" btn-primary btn-sm">Topics</a>
+                   <a href="{{route('topic',['id'=>$row->chapid])}}" class=" btn-primary btn-sm">Topics</a>
                   </div>
-                </div>
+                </div>@endforeach
               </div>
-@endforeach
+
 
 
 
@@ -370,12 +370,12 @@
     <div class="modal-content">
       <div class="modal-body">
       <h3 style="color:#000000">Add chapter</h3>
-        <form enctype="multipart/form-data"action="{{ route('storeassign') }}" id="chapterform" method="post">
+        <form enctype="multipart/form-data"action="{{ route('chapterstore') }}" id="chapterform" method="post">
         @csrf <div class="row">
-        <input type="hidden" value='{{$data->courseid}}'>
+        <input type="hidden" value='{{$data->courseid}}' name="courseid" id="courseid">
            <input  style="margin:10px 10px 10px 10px" type="text " id="name" name="name" placeholder="Name"class="form-control col-md-5"> 
-           <input  style="margin:10px 10px 10px 10px" type="text " id="content" name="content" placeholder="Content" class="form-control col-md-5">
-         </div> <button type="submit" id="addchap"class=" btn-primary btn-sm">Add</button>
+           <input  style="margin:10px 10px 10px 10px" type="text " id="desc" name="desc" placeholder="Content" class="form-control col-md-5">
+         </div> <button type="submit" id="chapgo"class=" btn-primary btn-sm">Add</button>
         </form>
       </div>
     </div>
@@ -426,11 +426,12 @@
   <script src="js/demo/chart-pie-demo.js"></script>
 <script>
 $(document).ready(function(){
-  $('#go').click(function(){
-  $('#form').on('submit', function(event){
+  $('.collapse').attr('class','collapse hide');
+  $('#chapgo').click(function(){
+  $('#chapterform').on('submit', function(event){
   event.preventDefault(); 
    $.ajax({
-    url:"{{ route('store') }}",
+    url:"{{ route('chapterstore') }}",
     method:"POST",
     data: new FormData(this),
     contentType: false,
@@ -439,23 +440,17 @@ $(document).ready(function(){
     dataType:"json",
     success:function(data)
     {
-     var html = '';
-     if(data.errors)
-     {
-      html = '<div class="alert alert-danger">';
-      for(var count = 0; count < data.errors.length; count++)
-      {
-       html += '<p>' + data.errors[count] + '</p>';
-      }
-      html += '</div>';
-     }
-     if(data.success)
-     {
-      html = '<div class="alert alert-success">' + data.success + '</div>';
-      $('#sample_form')[0].reset();
-      $('#user_table').DataTable().ajax.reload();
-     }
-     $('#form_result').html(html);
+   alert('data added successfully');
+$('#card').append(
+  '<a href="#collapse"'+data.chapid+'" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">'+
+                 ' <h6  class="m-0 font-weight-bold text-primary">'+data.name+'</h6>'+
+                '</a>'+
+               ' <div class="collapse show" id="collapse"'+data.chapid+'">'+
+                  '<div class="card-body">'+
+                  data.desc+'<br>'+
+                  '<a href="topic?id="'+data.chapid+'" class=" btn-primary btn-sm">Topics</a>'+
+                  '</div></div>');
+
     }
    });});}); 
       // $('#form').submit(function(e, data, status){

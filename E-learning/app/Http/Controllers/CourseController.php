@@ -183,13 +183,54 @@ class CourseController extends Controller
             }
 
             public function storeassign(Request $request){
-             
-                $assign = new assignment();
+             $editid = $request['editid'];
+                if(!$editid==null){
+                    $assign = assignment::find($editid);
+                    $topicid  = topic::where('name',$request->topic)->pluck('topicid');
+                    $chapid  = topic::where('name',$request->topic)->pluck('chapid'); 
+                    $course  = course::where('courseid',$request->course)->pluck('name'); 
+                    $chap  = chapter::where('chapid',$chapid[0])->pluck('name');  
+                    $assign->update([
+                        'name'=>$request->name,
+                        'duedata'=>$request->due,
+                        'topicid'=>$topicid[0]
+                    ]);
+                    $file ="";
+                    $f =$request->file('file');
+                    if(!$f == null){
+                    $fname = time(). '.' . $f->getClientOriginalExtension() ;
+                    $f->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/', $fname);
+                    $file= 'http://localhost/cerd-newproject/e-learning/E-learning/' . $fname;
+                   
+                    $assign->update([
+                        'name'=>$request->name,
+                        'file'=>$file,
+                        'duedata'=>$request->due,
+                        'topicid'=>$topicid[0]
+                    ]);}
+                    //dd($f);
+                   
+                    $data = [
+                          'assignment'=> $request->name,
+                      'assignid'=>$editid,
+                      'due'=> $request->due,
+                      'topic'=>$request->topic,
+                      'file'=> $file,
+                      'chapter'=>$chap[0],
+                      'course'=>$course[0]
+                    ];
+                    return response()->json($data);
+             }
+               else
+               { $assign = new assignment();
                 $assign->name = $request->name;
                 $assign->duedate = $request->due;
                 $topicid  = topic::where('name',$request->topic)->pluck('topicid'); 
+                $chapid  = topic::where('name',$request->topic)->pluck('chapid'); 
+                $course  = course::where('courseid',$request->course)->pluck('name'); 
+                $chap  = chapter::where('chapid',$chapid[0])->pluck('name'); 
                 $assign->topicid =$topicid[0];
-                
+                $file ="";
                 $f =$request->file('file');
                 if(!$f == null){
                 $fname = time(). '.' . $f->getClientOriginalExtension() ;
@@ -197,15 +238,18 @@ class CourseController extends Controller
                 $file= 'http://localhost/cerd-newproject/e-learning/E-learning/' . $fname;
                 $assign->file =$file;}
                 $assign->save();
-                //dd($f);
-                $data = ['assignment'=> $request->name,
-                'assignid'=>assignment::last('assignid'),
-                'due'=> $request->due,
-                'topic'=>$request->topic,
-                'file'=> $file,
-                'chapter'=>$request->chapter
+                // //dd($f);
+                $id = assignment::orderBy('assignid', 'DESC')->first();
+                $data = [
+                      'assignment'=> $request->name,
+                  'assignid'=>$id['assignid'],
+                  'due'=> $request->due,
+                  'topic'=>$request->topic,
+                  'file'=> $file,
+                  'chapter'=>$chap[0],
+                  'course'=>$course[0]
                 ];
-                return response()->json($data);
+                return response()->json($data);}
             }
 
             public function delassign()
@@ -216,29 +260,6 @@ class CourseController extends Controller
             return response()->json(['success'=>'data deleted successfully']);
             }
 
-            public function editassign(){
-             $id = request()->query('id');
-                $assign = assignment::find($id);
-                $assign->name = $request->name;
-                $assign->duedate = $request->due;
-                $topicid  = topic::where('name',$request->topic)->pluck('topicid'); 
-                $assign->topicid =$topicid[0];
-                
-                $f =$request->file('file');
-                if(!$f == null){
-                $fname = time(). '.' . $f->getClientOriginalExtension() ;
-                $f->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/', $fname);
-                $file= 'http://localhost/cerd-newproject/e-learning/E-learning/' . $fname;
-                $assign->file =$file;}
-                $assign->update();
-                //dd($f);
-                $data = ['assignment'=> $request->name,
-                'due'=> $request->due,
-                'topic'=>$request->topic,
-                'file'=> $file,
-                'chapter'=>$request->chapter
-                ];
-                return response()->json($data);
-            }
+     
 
 }

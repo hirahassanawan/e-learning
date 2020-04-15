@@ -2,6 +2,7 @@
 
 namespace App;
 use App\assignment;
+use App\video;
 use Illuminate\Database\Eloquent\Model;
 
 class topic extends Model
@@ -10,4 +11,9 @@ class topic extends Model
       
         return $this->hasMany(assignment::class(),'topicid','topicid');
     }
+  
+   public function video(){
+
+     return $this->hasMany(video::class,'topicid','topicid');
+   }
 }

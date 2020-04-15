@@ -67,5 +67,9 @@ Route::post('storeassign', 'CourseController@storeassign')->name('storeassign');
 Route::get('review', 'TeacherController@review')->name('review');
 Route::get('delassign', 'CourseController@delassign')->name('delassign');
 Route::get('dash', 'TeacherController@dash')->name('dash');
-Route::get('editassign', 'CourseController@editassign')->name('editassign');
+Route::post('storecontent', 'CourseContentController@store')->name('chapterstore');
+Route::get('topic', 'CourseContentController@index')->name('topic');
+Route::post('storevideo', 'CourseContentController@storevideo')->name('storevideo');
+
+
 
