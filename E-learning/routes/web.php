@@ -70,6 +70,7 @@ Route::get('dash', 'TeacherController@dash')->name('dash');
 Route::post('storecontent', 'CourseContentController@store')->name('chapterstore');
 Route::get('topic', 'CourseContentController@index')->name('topic');
 Route::post('storevideo', 'CourseContentController@storevideo')->name('storevideo');
+Route::post('topicstore', 'CourseContentController@topicstore')->name('topicstore');
 
 
 

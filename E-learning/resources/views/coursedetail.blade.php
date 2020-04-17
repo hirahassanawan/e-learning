@@ -328,8 +328,8 @@
       
         <!-- Begin Page Content -->
         <div style="padding-bottom:5%;background-image: url('{{$data['image']}}');background-size: cover;
-}" class="container-fluid">
-<video style="margin-left:240px" width="600" controls>
+" class="container-fluid">
+<video style="margin-left:240px" width="600" controls autoplay>
   <source src="{{$data['introclip']}}" type="video/mp4">
   Your browser does not support HTML5 video.
 </video> <button style="margin: 10px 10px 10px 10px" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary btn-sm">Add chapter</button>

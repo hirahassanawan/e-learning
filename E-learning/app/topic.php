@@ -6,7 +6,7 @@ use App\video;
 use Illuminate\Database\Eloquent\Model;
 
 class topic extends Model
-{
+{ protected $primaryKey = 'topicid';
     public function assignment(){
       
         return $this->hasMany(assignment::class(),'topicid','topicid');

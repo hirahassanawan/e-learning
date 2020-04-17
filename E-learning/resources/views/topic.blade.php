@@ -140,7 +140,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
-      <div id="content">
+      <div id="content"  style="padding-bottom:5%;background-image: url('{{$image[0]}}');background-size: cover;">
 
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -326,32 +326,52 @@
         <!-- End of Topbar -->
        
       
+
+
+
         <!-- Begin Page Content -->
         <div class="container-fluid">
-      </div>
-           <h1 style="color:#000000;margin-left:5%">Topics</h1>
+    
+           <h1 style="color:#ffffff;margin-left:5%">Topics</h1>
            <button  style="float:left;margin-left:70%"type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
              Add Topic
             </button>
            <!-- Collapsable Card Example -->
  
- <div id="card" style="margin:5% 5% 5% 5%"class="card shadow mb-4">
-                <!-- Card Header - Accordion -->
-                @foreach($data as $row)
-                <a href="#collapse{{$row->topicid}}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                  <h6  class="m-0 font-weight-bold text-primary">{{$row->topic}}</h6>
-                </a>
-                <!-- Card Content - Collapse -->
-                <div class="collapse" id="collapse{{$row->topicid}}">
-                  <div class="card-body">
-                  {{$row->content}} <br><br>
-                  <button data-toggle="modal" data-target=".bd-example-modal-sm" class="btn btn-primary btn-sm" >Add video</button><br><br>
-                   <a id="videolink" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter" ><i class="fas fa-play-circle" ></i>{{$row->videoname}}</a>
+     <div id="card" style="margin:5% 5% 5% 5%"class="card shadow mb-4">
+        <!-- Card Header - Accordion -->
+        @foreach($data as $row) 
+        <a href="#collapse{{$row->topicid}}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+          <h6  class="m-0 font-weight-bold text-primary">{{$row->topic}}</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse" id="collapse{{$row->topicid}}">
+          <div id="{{$row->topicid}}" class="card-body">
+                {{$row->content}} <br><br>
+               
+               <button  id="{{$row->topicid}}"  data-toggle="modal" data-target=".bd-example-modal-sm" class="videobtn btn-primary btn-sm" >Add video</button><br><br>
+                @foreach($row->video as $vid)
+                  <a id="videolink" class="video" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter{{$row->topicid}}" >
+                    <i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>{{$vid->name}}</a>         
+         <br>
+   <!-- video Modal -->
+               <div class="modal fade" id="exampleModalCenter{{$row->topicid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div  class="modal-content">
+                      <video id="videotag"  width="600" controls>
+                      <source src="{{$vid->video}}" type="video/mp4"></source>
+                      </video>              
+                     </div>
                   </div>
-                </div> @endforeach
-              </div>
-             
- <!-- Small modal -->
+                </div>
+          @endforeach
+          </div>
+      </div> @endforeach
+    </div>
+
+
+
+ <!-- video add modal -->
 
 <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -360,9 +380,8 @@
     <h3 style="color:#000000">Add video</h3>
         <form enctype="multipart/form-data"action="{{route('storevideo')}}" id="videoform" method="post">
         @csrf <div class="row">
-        <input type="hidden" value='' name="topicid" id="topicid">
+        <input type="hidden" name="topicid" id="hiddenid">
            <input  style="margin:10px 10px 10px 10px" type="text " id="name" name="name" placeholder="Name"class="form-control col-md-5"> 
-          
            <input style="margin:10px 10px 10px 10px" type="file" id="video" name="video">
          </div> <button type="submit" id="videogo"class=" btn-primary btn-sm">Add</button>
         </form>
@@ -370,36 +389,22 @@
     </div>
   </div>
 </div>
- 
-<!-- video Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div  class="modal-content">
-    
-      <video id="videonow"  width="600" controls>
-  <source src="{{asset($row->video)}}" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video> 
-     
-    </div>
-  </div>
-</div>
- 
 
 
 
-<!-- Modal -->
+
+<!-- Topic add Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
       <h3 style="color:#000000">Add Topic</h3>
-        <form enctype="multipart/form-data"action="" id="chapterform" method="post">
+        <form enctype="multipart/form-data" action="{{route('topicstore')}}" id="topicform" method="post">
         @csrf <div class="row">
-        <input type="hidden" value='' name="courseid" id="courseid">
+        <input type="hidden" name="chapid" id="hiddenchapid" value='{{$chapid}}'>
            <input  style="margin:10px 10px 10px 10px" type="text " id="name" name="name" placeholder="Name"class="form-control col-md-5"> 
-           <input  style="margin:10px 10px 10px 10px" type="text " id="desc" name="desc" placeholder="Content" class="form-control col-md-5">
-         </div> <button type="submit" data-dismiss="modal" id="chapgo"class=" btn-primary btn-sm">Add</button>
+           <input  style="margin:10px 10px 10px 10px" type="text " id="content" name="content" placeholder="Content" class="form-control col-md-5">
+         </div> <button type="submit"  id="topicgo"class=" btn-primary btn-sm">Add</button>
         </form>
       </div>
     </div>
@@ -411,8 +416,7 @@
 
       </div>
         <!-- /.container-fluid -->
-
-      </div>
+        </div>
       <!-- End of Main Content -->
 
      
@@ -440,10 +444,28 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+
+
 <script>
 $(document).ready(function(){
    $('.collapse').attr('class','collapse hide');
-     
+   
+     $('.videobtn').click(function(){
+        var topicid = $(this).attr('id');
+       // alert(topicid);
+     $('#hiddenid').val(topicid); alert(topicid);
+     });
+
+
+    //  $('.video').click(function(){
+    //     var video = $(this).attr('id');
+    //   //   var src =""+video+""; //alert(src);
+    //   $("video").html('<source src="'+video+'" type="video/mp4"></source>' );
+    // //  var n  = $('source').attr('src');
+    //  //alert(n);
+    //  });
+
+ 
  $('#videogo').click(function(){
   $('#videoform').on('submit', function(event){
   event.preventDefault(); alert("add");
@@ -457,26 +479,51 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    { alert(data);
-    $('#videolink').append( 
-      '<a id="videolink" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter" >'+
-      '<i class="fas fa-play-circle" ></i>'+data.name+'</a>'
-   ); 
-        $('#videonow').replaceWith(
-          '<video id="videonow"  width="600" controls>'+
-  '<source src="{{asset('+video+')}}" type="video/mp4">'
-  'Your browser does not support HTML5 video.'+
-'</video>'
-        );
+    { alert('data added successfully');
+
+      $('#videolink').last().append(
+        
+        '<i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>'+data.name+'</a>'+         
+        '<br>'+
+               '<div class="modal fade" id="exampleModalCenter'+data.topicid+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">'+
+                  '<div class="modal-dialog modal-dialog-centered" role="document">'+
+                    '<div  class="modal-content">'+
+                      '<video id="videotag"  width="600" controls>'+
+                      '<source src="'+data.video+'" type="video/mp4"></source>'+
+                      '</video>'+              
+                     '</div>'+
+                  '</div>'+
+                '</div>'
+         );
+   }
+   });
+  }); 
+  });
+
+  
+ $('#topicgo').click(function(){ 
+  $('#topicform').on('submit', function(event){
+  event.preventDefault(); 
+  alert("add");
+ 
+   $.ajax({
+    url:"{{route('topicstore')}}",
+    method:"POST",
+    data: new FormData(this),
+    contentType: false,
+    cache:false,
+    processData: false,
+    dataType:"json",
+    success:function(data)
+    { alert(data.name);
 
    }
-   
    });
-  
   }); 
-  
-  
   });
+
+
+});
 
   
 </script>

@@ -44,7 +44,7 @@
                      
                       <td><spans id="del" name="{{$row->assignid}}"><button class=" btn-danger btn-sm" >
                       <i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></spans>
-                      <espan id="edit" name="{{$row->assignid}}"><button data-toggle="modal" data-target="#exampleModalCenter" class=" btn-success btn-sm" >
+                      <espan><button  id="{{$row->assignid}}" data-toggle="modal" data-target="#exampleModalCenter" class="editbtn btn-success btn-sm" >
                       <i title="edit"style="color:white" class="fa fa-edit"></i></button></espan>
                       </td>
                     </tr>
@@ -88,8 +88,8 @@
           <option value="">select topic</option>
           </select>  
            <input  style="margin:10px 10px 10px 10px" type="file" id="file" name="file">
-         </div> <button type="submit" id="go"class=" btn-primary btn-sm">Add</button>
-         <button type="submit" id="editgo"class=" btn-success btn-sm">Edit</button>
+         </div> <button type="submit"  id="go" name="go"  class=" btn-primary btn-sm">Add</button>
+         <button type="submit"  name="editgo" id="editgo"  class=" btn-success btn-sm">Edit</button>
         </form>
       </div>
     </div>
@@ -155,7 +155,7 @@ $(document).ready(function(){
     success:function(data)
     { //alert('data');
      
-      $('tbody').append("<tr>"+
+      $('tbody').last().append("<tr>"+
                             '<td><a href="'+data.file+'" class="btn btn-warning" ><i title="file"style="color:black" class="fa fa-file-alt"></i></a></td>'+
                             "<td>" + data.assignment+ "</td>"+
                             "<td>" + data.course + "</td>"+
@@ -164,7 +164,7 @@ $(document).ready(function(){
                             "<td>" + data.due + "</td>"+
                             '<td><spans id="del" name="'+data.assignid+'"><button class=" btn-danger btn-sm" >'+
                             '<i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></spans>'+
-                            '<espan id="edit" name="'+data.assignid+'"><button data-toggle="modal" data-target=".bd-example-modal-sm"class=" btn-success btn-sm" >'+
+                            '<espan><button  id="edit" name="'+data.assignid+'" data-toggle="modal" data-target=".bd-example-modal-sm"class=" btn-success btn-sm" >'+
                             '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan>'+
                         "</tr>");
    }
@@ -184,18 +184,21 @@ $(document).ready(function(){
    });
    }); 
   //edit
-  $('#edit').click(function(){
-    $('#go').hide();
-     $('#editgo').show();
-     var id = $(this).attr('name');
-     $('#edithidden').val(id);
+  $('.editbtn').click(function(){
+    var id = $(this).attr('id');
+    //  $('#go').hide();
+    //  $('#editgo').show();
+      $('#edithidden').val(id); alert(id);
   });
-  $('#add').click(function(){
-    $('#editgo').hide();
-     $('#go').show();
-  });
+  // $('#add').click(function(){
+  
+  //    $('#editgo').hide();
+    
+     
+  // });
 
- $('#editgo').click(function(){
+
+ $('espan').click(function(){
   $('#assignform').on('submit', function(event){
   event.preventDefault(); 
   // $('#edithidden').val(id);
@@ -208,10 +211,10 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    {alert('data updated');
+    {alert(data.assignid);
     // var hi = $('tbody').attr('id','post'+data.assignid );
     //   alert(hi[0]);
-      $('.post'+data.assignid).replaceWith("<tr>"+
+      $('.post' + data.assignid).replaceWith("<tr>"+
                             '<td><a href="'+data.file+'" class="btn btn-warning" ><i title="file"style="color:black" class="fa fa-file-alt"></i></a></td>'+
                             "<td>" + data.assignment+ "</td>"+
                             "<td>" + data.course + "</td>"+

@@ -23,18 +23,23 @@ class CourseContentController extends Controller
      */
     public function index()
     {    $chapid = request()->query('id');
-        $topic = topic::where('chapid',$chapid)
-        ->join('videos','topics.topicid','=','videos.topicid')
-        ->select('topics.name as topic','videos.name as videoname','content','topics.topicid','video')->get();
-        return view('topic',['data'=>$topic]);
-         // $topic = topic::where('chapid',$chapid)->pluck('topicid'); 
-        // $data ="";
-        // foreach($topic as $id){
-        //      $data = topic::where('topicid',$id)
-        //      ->select('topics.topicid','topics.name as topic','content')->first();
-        //      $data->video;
-        // }
-        //return dd($data->topicid);
+        $image = chapter::where('chapid',$chapid)->join('courses','chapters.courseid','=','courses.courseid')
+        ->pluck('image'); 
+    //     $topic = topic::where('chapid',$chapid)
+    //     ->join('videos','topics.topicid','=','videos.topicid')
+    //     ->select('topics.topicid','topics.name as topic','content','videos.name as videoname','videoid','video')->get();
+    //   //return dd($topic);
+    //       return view('topic',['data'=>$topic]);
+            $topic = topic::where('chapid',$chapid)->pluck('topicid'); 
+            $finaldata = array();
+            foreach($topic as $id){
+                $data = topic::where('topicid',$id)
+                ->select('topics.topicid','topics.name as topic','content')->first();
+                $data->video;  
+                $finaldata[]=$data;           
+            }
+            return view('topic',['data'=>$finaldata,'chapid'=>$chapid,'image'=>$image]);
+            // return dd($image);
     }
 
     /**
@@ -42,9 +47,18 @@ class CourseContentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        
+    public function topicstore(Request $request)
+    {    
+        $topic = new topic();
+        $topic->chapid =  $request->chapid;
+        $topic->name = $request->name;
+        $topic->content = $request->content;
+        $topic->save();
+        $data = [
+        'name'=> $request->name,
+        'content'=>$request->content,
+      ];
+        return response()->json($data);
     }
 
     /**
@@ -119,6 +133,12 @@ class CourseContentController extends Controller
         $video->name = $request->name;
         $video->topicid = $request->topicid;
         $video->save();
-        return response()->json(['success'=>'data added successfully']);
+        $data = [
+            'topicid'=>$request->topicid,
+            'videoname'=> $request->name,
+            'video'=>$file,
+          ];
+         
+        return response()->json($data);
     }
 }
