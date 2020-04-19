@@ -20,8 +20,12 @@ class TeacherController extends Controller
     public function index()
     { 
         $profile = Teacher::get();
-
-    return view('teacher',['data'=>$profile]);
+        $review = review::where('teacherid',1)->pluck('reviewid');
+        $rdetail = reviewdetail::where('reviewid',$review[0])
+        ->join('students','reviewdetails.studentid','=','students.studentid')->
+        avg('rating');
+       $rating =  round($rdetail,1);
+    return view('teacher',['data'=>$profile,'rating'=>$rating]);
     }
 
     /**

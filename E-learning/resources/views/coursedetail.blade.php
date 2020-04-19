@@ -439,8 +439,8 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    {
-   alert('data added successfully');
+    { // href="topic?id="+data.chapid+"" ;
+   alert("chapter added successfully");
 $('#card').append(
   '<a href="#collapse"'+data.chapid+'" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">'+
                  ' <h6  class="m-0 font-weight-bold text-primary">'+data.name+'</h6>'+
@@ -448,7 +448,7 @@ $('#card').append(
                ' <div class="collapse show" id="collapse"'+data.chapid+'">'+
                   '<div class="card-body">'+
                   data.desc+'<br>'+
-                  '<a href="topic?id="'+data.chapid+'" class=" btn-primary btn-sm">Topics</a>'+
+                  '<a href="topic?id='+data.chapid+'" class=" btn-primary btn-sm">Topics</a>'+
                   '</div></div>');
 
     }

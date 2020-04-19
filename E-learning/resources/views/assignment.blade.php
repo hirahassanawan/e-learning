@@ -42,8 +42,8 @@
                       <td>{{$row->topic}}</td>
                       <td>{{$row->duedate}}</td>
                      
-                      <td><spans id="del" name="{{$row->assignid}}"><button class=" btn-danger btn-sm" >
-                      <i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></spans>
+                      <td><button  id="{{$row->assignid}}" class="delete btn-danger btn-sm" >
+                      <i title="delete"style="color:white" class="fa fa-trash-alt"></i></button>
                       <espan><button  id="{{$row->assignid}}" data-toggle="modal" data-target="#exampleModalCenter" class="editbtn btn-success btn-sm" >
                       <i title="edit"style="color:white" class="fa fa-edit"></i></button></espan>
                       </td>
@@ -153,7 +153,7 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    { //alert('data');
+    { alert(data);
      
       $('tbody').last().append("<tr>"+
                             '<td><a href="'+data.file+'" class="btn btn-warning" ><i title="file"style="color:black" class="fa fa-file-alt"></i></a></td>'+
@@ -162,18 +162,18 @@ $(document).ready(function(){
                             "<td>" + data.chapter + "</td>"+
                             "<td>" + data.topic + "</td>"+
                             "<td>" + data.due + "</td>"+
-                            '<td><spans id="del" name="'+data.assignid+'"><button class=" btn-danger btn-sm" >'+
-                            '<i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></spans>'+
-                            '<espan><button  id="edit" name="'+data.assignid+'" data-toggle="modal" data-target=".bd-example-modal-sm"class=" btn-success btn-sm" >'+
-                            '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan>'+
+                            '<td><button id="'+data.assignid+'" class="delete btn-danger btn-sm" >'+
+                            '<i title="delete"style="color:white" class="fa fa-trash-alt"></i></button>'+
+                            '<espan><button  id="'+data.assignid+'" data-toggle="modal" data-target="#exampleModalCenter" class="editbtn btn-success btn-sm" >'+
+                      '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan><td>'+
                         "</tr>");
    }
    });});}); 
  
 //delete assignment
-   $('spans').click( function(){
+   $('.delete').click( function(){
   $(this).parent().parent().remove(); 
-  var id = $(this).attr('name');
+  var id = $(this).attr('id'); alert(id);
    $.ajax({
     url:"{{ route('delassign') }}",
     method:"get",
@@ -186,14 +186,13 @@ $(document).ready(function(){
   //edit
   $('.editbtn').click(function(){
     var id = $(this).attr('id');
-    //  $('#go').hide();
-    //  $('#editgo').show();
-      $('#edithidden').val(id); alert(id);
+      $('#go').hide();
+      $('#editgo').show();
+      $('#edithidden').val(id); //alert(id);
   });
   // $('#add').click(function(){
   
   //    $('#editgo').hide();
-    
      
   // });
 
@@ -211,7 +210,7 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    {alert(data.assignid);
+    {//alert(data.assignid);
     // var hi = $('tbody').attr('id','post'+data.assignid );
     //   alert(hi[0]);
       $('.post' + data.assignid).replaceWith("<tr>"+
@@ -221,10 +220,10 @@ $(document).ready(function(){
                             "<td>" + data.chapter + "</td>"+
                             "<td>" + data.topic + "</td>"+
                             "<td>" + data.due + "</td>"+
-                            '<td><spans id="del" name="'+data.assignid+'"><button class=" btn-danger btn-sm" >'+
-                            '<i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></spans>'+
-                            '<espan id="edit" name="'+data.assignid+'"><button data-toggle="modal" data-target=".bd-example-modal-sm"class=" btn-success btn-sm" >'+
-                            '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan>'+
+                            '<td><button id="'+data.assignid+'" class="delete btn-danger btn-sm" >'+
+                            '<i title="delete"style="color:white" class="fa fa-trash-alt"></i></button>'+
+                            '<espan><button  id="'+data.assignid+'" data-toggle="modal" data-target="#exampleModalCenter" class="editbtn btn-success btn-sm" >'+
+                      '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan>'+
                         "</tr>");
     }
    });});}); 

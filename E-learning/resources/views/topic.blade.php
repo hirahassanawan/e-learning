@@ -351,11 +351,12 @@
                
                <button  id="{{$row->topicid}}"  data-toggle="modal" data-target=".bd-example-modal-sm" class="videobtn btn-primary btn-sm" >Add video</button><br><br>
                 @foreach($row->video as $vid)
-                  <a id="videolink" class="video" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter{{$row->topicid}}" >
+                <div class="video{{$row->topicid}}">
+                  <a id="videolink"  href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter{{$vid->videoid}}" >
                     <i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>{{$vid->name}}</a>         
          <br>
    <!-- video Modal -->
-               <div class="modal fade" id="exampleModalCenter{{$row->topicid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+               <div class="modal fade " id="exampleModalCenter{{$vid->videoid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                     <div  class="modal-content">
                       <video id="videotag"  width="600" controls>
@@ -363,7 +364,7 @@
                       </video>              
                      </div>
                   </div>
-                </div>
+                </div> </div>
           @endforeach
           </div>
       </div> @endforeach
@@ -453,7 +454,8 @@ $(document).ready(function(){
      $('.videobtn').click(function(){
         var topicid = $(this).attr('id');
        // alert(topicid);
-     $('#hiddenid').val(topicid); alert(topicid);
+     $('#hiddenid').val(topicid); //alert(topicid);
+    // $('#hiddenvidid').val(videoid); //alert(videoid);
      });
 
 
@@ -468,7 +470,7 @@ $(document).ready(function(){
  
  $('#videogo').click(function(){
   $('#videoform').on('submit', function(event){
-  event.preventDefault(); alert("add");
+  event.preventDefault(); //alert("add");
  
    $.ajax({
     url:"{{ route('storevideo') }}",
@@ -479,13 +481,12 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    { alert('data added successfully');
-
-      $('#videolink').last().append(
-        
-        '<i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>'+data.name+'</a>'+         
+    { alert('video added');
+      $('.video' + data.topicid).last().append(
+        '<a id="videolink" class="video" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter'+data.videoid+'" >'+
+      '<i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>'+data.name+'</a>'+         
         '<br>'+
-               '<div class="modal fade" id="exampleModalCenter'+data.topicid+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">'+
+               '<div class="modal fade" id="exampleModalCenter'+data.videoid+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">'+
                   '<div class="modal-dialog modal-dialog-centered" role="document">'+
                     '<div  class="modal-content">'+
                       '<video id="videotag"  width="600" controls>'+
@@ -493,8 +494,9 @@ $(document).ready(function(){
                       '</video>'+              
                      '</div>'+
                   '</div>'+
-                '</div>'
-         );
+                '</div>');
+  
+         
    }
    });
   }); 
@@ -515,7 +517,18 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    { alert(data.name);
+    { alert(data.topicid);
+ $('#card').last().append(
+      '<a href="#collapse'+data.topicid+'" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">'+
+          '<h6  class="m-0 font-weight-bold text-primary">'+data.name+'</h6>'+
+        '</a>'+
+        '<div class="collapse" id="collapse'+data.topicid+'">'+
+          '<div id="'+data.topicid+'" class="card-body">'+
+                data.content +'<br><br>'+
+               '<button  id="'+data.topicid+'"  data-toggle="modal" data-target=".bd-example-modal-sm" class="videobtn btn-primary btn-sm" >Add video</button><br><br>'+
+               '<div class="video'+data.topicid+'">'+ 
+               '</div> </div>'+
+          +'</div>');
 
    }
    });

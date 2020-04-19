@@ -22,7 +22,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $course = Course::where('teacherid',1)->get();
+        $course = Course::where('teacherid',1)->where('status',1)->get();
         return view('course',['data'=>$course,]);
     }
 

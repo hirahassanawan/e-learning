@@ -54,9 +54,11 @@ class CourseContentController extends Controller
         $topic->name = $request->name;
         $topic->content = $request->content;
         $topic->save();
+        $id = topic::orderBy('topicid', 'DESC')->first();
         $data = [
-        'name'=> $request->name,
-        'content'=>$request->content,
+            'topicid'=>$id['topicid'],
+            'name'=> $request->name,
+            'content'=>$request->content,
       ];
         return response()->json($data);
     }
@@ -71,8 +73,9 @@ class CourseContentController extends Controller
     {
         $chapter = new chapter();
         $chapter->create($request->all());
+        $id = chapter::orderBy('chapid', 'DESC')->first();
         $data = [
-        'courseid'=>$request->courseid,
+        'chapid'=>$id['chapid'],
         'name'=> $request->name,
         'desc'=>$request->desc,
       ];
@@ -133,9 +136,11 @@ class CourseContentController extends Controller
         $video->name = $request->name;
         $video->topicid = $request->topicid;
         $video->save();
+       // $id = video::orderBy('videoid', 'DESC')->first();
         $data = [
             'topicid'=>$request->topicid,
-            'videoname'=> $request->name,
+            'lastvideoid'=>$request->hiddenvidid,
+            'name'=> $request->name,
             'video'=>$file,
           ];
          

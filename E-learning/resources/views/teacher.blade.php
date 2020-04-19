@@ -4,10 +4,10 @@
 
 <!-- Begin Page Content -->
 <input type="hidden" id="data" value='{{$data}}'>
-<div  style="margin-top:2%"; class="container-fluid"><div id="profiledata" >
+<div  style="margin-top:2%" class="container-fluid"><div id="profiledata" >
   @foreach($data as $row)
   <div  class="row">     
-  <div class="col-md-4"><img class="responsive"style="height:300px; width:300px" id="img"src="{{URL::asset($row->image)}}" alt="image"></div>
+  <div class="col-md-4"><img class="responsive"style="margin-left:2%;height:300px; width:300px" id="img"src="{{URL::asset($row->image)}}" alt="image"></div>
        <div class="col-md-6" >
          <h2 id="name" style="color:#000000" >{{$row->firstname.' '.$row->lastname}}</h2>
          <h5 style="size:4%; color:#0000FF " >{{$row->title}}</h5>
@@ -25,7 +25,23 @@
         <i style=" color:#000000 "class="fas fa-globe"></i>
         </a><br><br> 
         <button  class="btn btn-dark btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Edit profile</button>
+        <div class="col-auto">
+                     <br> <h6>Average rating: {{$rating}}</h6>
+                    </div>
+                        @foreach(range(1,5) as $i)
+                            <span class="fa-stack" style="width:1em; color:#FF9529;  margin:2px ">
+                                <i class="far fa-star fa-stack-1x"></i>
 
+                                @if($rating >0)
+                                    @if($rating >0.5)
+                                        <i class="fas fa-star fa-stack-1x"></i>
+                                    @else
+                                        <i class="fas fa-star-half fa-stack-1x"></i>
+                                    @endif
+                                @endif
+                                @php $rating--; @endphp
+                            </span>
+                        @endforeach
       </div>
   </div>
   @endforeach </div>
