@@ -349,11 +349,13 @@
  <div id="card"class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
                 @foreach($data['chapter'] as $row)
+                <a href="{{route('delchapter',['id'=>$row->chapid])}}" class="deletechapter" id="{{$row->chapid}}" style="margin-left:95%;lenght:30px; width:30px" ><i style ="color:red"class="fa fa-trash-alt" ></i> </a>
+
                 <a href="#collapse{{$row->chapid}}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
                   <h6  class="m-0 font-weight-bold text-primary">{{$row->name}}</h6>
                 </a>
                 <!-- Card Content - Collapse -->
-                <div class="collapse show" id="collapse{{$row->chapid}}">
+                <div class="collapse" id="collapse{{$row->chapid}}">
                   <div class="card-body">
                   {{$row->desc}} <br>
                    <a href="{{route('topic',['id'=>$row->chapid])}}" class=" btn-primary btn-sm">Topics</a>
@@ -426,7 +428,9 @@
   <script src="js/demo/chart-pie-demo.js"></script>
 <script>
 $(document).ready(function(){
+
   $('.collapse').attr('class','collapse hide');
+  
   $('#chapgo').click(function(){
   $('#chapterform').on('submit', function(event){
   event.preventDefault(); 
@@ -442,48 +446,52 @@ $(document).ready(function(){
     { // href="topic?id="+data.chapid+"" ;
    alert("chapter added successfully");
 $('#card').append(
+  '<a href="" class="newdeletechapter" id="'+data.chapid+'" style="margin-left:95%;lenght:30px; width:30px" ><i style ="color:red"class="fa fa-trash-alt" ></i> </a>'+
   '<a href="#collapse"'+data.chapid+'" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">'+
                  ' <h6  class="m-0 font-weight-bold text-primary">'+data.name+'</h6>'+
                 '</a>'+
-               ' <div class="collapse show" id="collapse"'+data.chapid+'">'+
+               ' <div class="collapse" id="collapse"'+data.chapid+'">'+
                   '<div class="card-body">'+
                   data.desc+'<br>'+
                   '<a href="topic?id='+data.chapid+'" class=" btn-primary btn-sm">Topics</a>'+
                   '</div></div>');
+$('.newdeletechapter').on('click', function(e){
+    e.preventDefault();
+    var id = $(this).attr('id');//alert(id);
+  $(this).next().remove();
+  $(this).remove();  
+
+   $.ajax({
+    url:"{{ route('delchapter') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert(data['success']);
+    }
+   });
+   }); 
 
     }
    });});}); 
-      // $('#form').submit(function(e, data, status){
-      // //  $data = response.text();
-      //       alert('record updated');
-        //  var e=$('#email').val();
-        //  var n=$('#name').val();
-        //   $.post('{{route("store")}}',{
-        //   email: e,
-        //   name: n
-        //   }, function(x,data, status){
-        //   alert(data);//$('#name').html(data);
-   //x.preventDefault();
-  //  });
-      
-  //      });
+    
+  $('.deletechapter').on('click', function(e){
+    e.preventDefault();
+    var id = $(this).attr('id');//alert(id);
+  $(this).next().remove();
+  $(this).remove();  
+
+   $.ajax({
+    url:"{{ route('delchapter') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert(data['success']);
+    }
+   });
+   }); 
+
   });
 
-  //
-  // $('#test').click(function(){
-  
-
-  // });
-  // $('#input').keyup(function(){
-  //   name = $('#input').val(); 
-  //   $.post('../app/User.php',{
-  //     s: name
-  //   }, function(data, status){
-  //      $('#name').html(data);
-       
-  //  });
-  // });
-//});
 </script>
 </body>
 

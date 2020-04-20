@@ -49,21 +49,62 @@ class CourseController extends Controller
        $course->desc = $request->desc;
        $course->content = $request->content;
        $course->teacherid = 1;
+      
        $img =$request->file('image');
        $imgname = $request->name. '.' . $img->getClientOriginalExtension() ;
        $img->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/img/', $imgname);
        $image= 'http://localhost/cerd-newproject/e-learning/E-learning/img/' . $imgname;
        $course->image = $image;
+      
        $vid =$request->file('video');
        $vidname = $request->name. '.' . $vid->getClientOriginalExtension() ;
        $vid->move('C:/xampp/htdocs/cerd-newproject/e-learning/E-learning/video/', $vidname);
        $video= 'http://localhost/cerd-newproject/e-learning/E-learning/video/' . $vidname;
        $course->introclip = $video;
+     
+       $cat = $request->cat;
+       if($cat == "other"){
+           $newcat = new category();
+           $newcat->type = $request->newcat;
+           $newcat->save();
+           $catid = category::orderBy('catid', 'DESC')->pluck('catid');
+           $newsubcat = new subcategory();
+           $newsubcat->catid = $catid[0];
+           $newsubcat->name = $request->newsubcat;
+           $newsubcat->save();
+           $subcatid = subcategory::orderBy('subcatid', 'DESC')->pluck('subcatid');
+           $newprd = new product();
+           $newprd->subcatid = $subcatid[0];
+           $newprd->name = $request->newprd;
+           $newprd->save();
+           $newprdid = product::orderBy('productid', 'DESC')->pluck('productid');
+           $course->productid = $newprdid[0];
+       }
+       else{$prdid = product::where('name',$request->product)->pluck('productid');
+       $course->productid = $prdid[0];}
 
-       $course->langid = $request->lang;
-       $prdid = product::where('name',$request->product)->pluck('productid');
-       $course->productid = $prdid[0];
-       $course->reqid = $request->req;
+       $lang = $request->lang;
+        if($lang == "other"){
+        $addlang = new language();
+        $addlang->lang=$request->newlang;
+        $addlang->save();
+        $langid = language::orderBy('langid', 'DESC')->pluck('langid');
+        $course->langid = $langid[0];
+        }
+      else
+      { $course->langid = $request->lang;}
+
+       $req = $request->req;
+       if($req == "other"){
+       $addreq = new requirement();
+       $addreq->req=$request->newreq;
+       $addreq->save();
+       $reqid = requirement::orderBy('reqid', 'DESC')->pluck('reqid');
+       $course->reqid = $reqid[0];
+       }
+       else
+       {$course->reqid = $request->req;}
+
        $course->certificate = $request->certificate;
        $course->levelid = $request->level;
    // return dd($prdid);
@@ -79,11 +120,11 @@ class CourseController extends Controller
      */
     public function show()
     {
-        $cat = category::get();
-        $subcat = subcategory::get();
-        $product = product::get();
-        $lang = language::get();
-        $req = requirement::get();
+        $cat = category::where('status',1)->get();
+        $subcat = subcategory::where('status',1)->get();
+        $product = product::where('status',1)->get();
+        $lang = language::where('status',1)->get();
+        $req = requirement::where('status',1)->get();
         $level = level::get();
     return view('addcourse',['cat'=>$cat,'subcat'=>$subcat,'product'=>$product,'lang'=>$lang,'req'=>$req,'level'=>$level]);
     }
@@ -127,15 +168,15 @@ class CourseController extends Controller
 
     public function subcatshow(Request $request){
         $id = $request['value'];
-        $data = subcategory::where('catid',$id)->pluck('name');
+        $data = subcategory::where('catid',$id)->where('status',1)->pluck('name');
         //return dd($id);
         return response()->json($data);
     }
 
     public function prdshow(Request $request){
         $value = $request['value'];
-        $id = subcategory::where('name',$value)->pluck('subcatid');
-        $data = product::where('subcatid',$id[0])->pluck('name');
+        $id = subcategory::where('name',$value)->where('status',1)->pluck('subcatid');
+        $data = product::where('subcatid',$id[0])->where('status',1)->pluck('name');
         //return dd($id);
         return response()->json($data);
         }
@@ -184,7 +225,7 @@ class CourseController extends Controller
 
             public function storeassign(Request $request){
              $editid = $request['editid'];
-                if(!$editid==null){
+                if($editid>0){
                     $assign = assignment::find($editid);
                     $topicid  = topic::where('name',$request->topic)->pluck('topicid');
                     $chapid  = topic::where('name',$request->topic)->pluck('chapid'); 

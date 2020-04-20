@@ -16,12 +16,12 @@
                     <input  style="margin:10px 10px 10px 10px" type="text " id="desc" name="desc" value=""class="form-control col-md-5">
                     <h5 style="margin:10px 10px 10px 10px;color:#000000" >Content</h5>     
                     <input style="margin:10px 10px 10px 10px" type="email " id="content" name="content" value=""class="form-control col-md-10">
-                    <select name="certificate" id="certificate" class=" col-md-5" style="margin:10px 10px 10px 10px">
+                    <select name="certificate" id="certificate" class=" col-md-4" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Certificate</option>
                         <option value="1">yes</option>
                         <option value="0">No</option>
                     </select>
-                    <select name="lang" id="lang" class=" col-md-5" style="margin:10px 10px 10px 10px">
+                    <select name="lang" id="lang" class=" col-md-4" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Language</option>
                         @foreach ($lang as $row)
                         <option id="" name="" value="{{$row->langid}}">
@@ -29,7 +29,9 @@
                         </option>
                         @endforeach
                         </option>
+                        <option value="other" class="form-control col-md-5">other</option>
                     </select>
+                    <input style="display:none" placeholder="New language" style="margin:10px 10px 10px 10px" type="text" id="newlang" name="newlang" >
                     <select name="req" id="req" class=" col-md-5" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Requirement</option>
                         @foreach ($req as $row)
@@ -38,7 +40,9 @@
                         </option>
                         @endforeach
                         </option>
+                        <option value="other" class="form-control col-md-5">other</option>
                     </select>
+                    <input style="display:none" placeholder="New Requirement" style="margin:10px 10px 10px 10px" type="text" id="newreq" name="newreq" >
                     <select name="level" id="level" class=" col-md-5" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Level</option>
                         @foreach ($level as $row)
@@ -57,18 +61,22 @@
                             {{$row->type}}
                         </option>
                         @endforeach
-                        
+                        <option value="other" class="form-control col-md-5">other</option>
                     </select>
                     <select name="subcat" id="subcat" class="subcategorylist col-md-3" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Select subcategory</option>
                        
                         </option>
+                        <option value="other" class="form-control col-md-5">other</option>
                     </select>
                     <select name="product" id="product" class=" col-md-4" style="margin:10px 10px 10px 10px">
                         <option value="0" disabled="true" selected="true">Select product</option>
                         </option>
+                        <option value="other" class="form-control col-md-5">other</option>
                     </select>
-                    
+                    <input style="display:none" placeholder="New category" style="margin:10px 10px 10px 10px" type="text" id="newcat" name="newcat" >
+                    <input style="display:none" placeholder="New subcategory" style="margin:10px 10px 10px 10px" type="text" id="newsubcat" name="newsubcat" >
+                    <input style="display:none" placeholder="New product" style="margin:10px 10px 10px 10px" type="text" id="newprd" name="newprd" >
                     <h5 style="margin:10px 10px 10px 10px;color:#000000" >Intro Video</h5>     
                     <input  style="margin:10px 10px 10px 10px" type="file" id="video" name="video">
                     <h5 style="margin:10px 10px 10px 10px;color:#000000" >Image</h5>    
@@ -132,7 +140,12 @@ $(document).ready(function(){
    });});});
 
 
-   $('#cat').change(function(){ $('#subcat').empty();  
+   $('#cat').change(function(){ $('#subcat').empty(); 
+    if($(this).val() == 'other') 
+    {  $('#newcat').show();
+        $("#newsubcat").show();
+        $("#newprd").show();
+    }
   if($(this).val() != '')
   {
    var select = $(this).attr("id");
@@ -184,7 +197,21 @@ $(document).ready(function(){
   }
  });
 
- 
+$('#lang').change( function(){
+    var val = $(this).val();
+    if( val == "other")
+    {//alert(other);
+     $('#newlang').show();
+    }
+}); 
+
+$('#req').change( function(){
+    var val = $(this).val();
+    if( val == "other")
+    {//alert(other);
+     $('#newreq').show();
+    }
+}); 
 
 //    $('#cat').on('change', function () {
 //       var cat_id = $('#cat').val();

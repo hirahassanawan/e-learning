@@ -71,6 +71,10 @@ Route::post('storecontent', 'CourseContentController@store')->name('chapterstore
 Route::get('topic', 'CourseContentController@index')->name('topic');
 Route::post('storevideo', 'CourseContentController@storevideo')->name('storevideo');
 Route::post('topicstore', 'CourseContentController@topicstore')->name('topicstore');
+Route::get('delchapter', 'CourseContentController@delchapter')->name('delchapter');
+Route::get('delchapter', 'CourseContentController@delchapter')->name('delchapter');
+Route::get('deltopic', 'CourseContentController@deltopic')->name('deltopic');
+Route::get('delvideo', 'CourseContentController@delvideo')->name('delvideo');
 
 
 

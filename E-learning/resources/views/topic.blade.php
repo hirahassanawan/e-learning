@@ -341,9 +341,10 @@
      <div id="card" style="margin:5% 5% 5% 5%"class="card shadow mb-4">
         <!-- Card Header - Accordion -->
         @foreach($data as $row) 
+        <a href="{{route('deltopic',['id'=>$row->topicid])}}"class="deletetopic" id="{{$row->topicid}}" style="margin-left:95%;lenght:30px; width:30px" ><i style ="color:red"class="fa fa-trash-alt" ></i> </a>
         <a href="#collapse{{$row->topicid}}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
           <h6  class="m-0 font-weight-bold text-primary">{{$row->topic}}</h6>
-        </a>
+        </a> 
         <!-- Card Content - Collapse -->
         <div class="collapse" id="collapse{{$row->topicid}}">
           <div id="{{$row->topicid}}" class="card-body">
@@ -353,7 +354,9 @@
                 @foreach($row->video as $vid)
                 <div class="video{{$row->topicid}}">
                   <a id="videolink"  href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter{{$vid->videoid}}" >
-                    <i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>{{$vid->name}}</a>         
+                    <i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>{{$vid->name}}</a>
+                    <a href="{{route('delvideo',['id'=>$vid->videoid])}}"class="deletevideo" id="{{$vid->videoid}}" style="margin-left:1%;lenght:30px; width:30px" ><i style ="color:red"class="fa fa-trash-alt" ></i> </a>
+         
          <br>
    <!-- video Modal -->
                <div class="modal fade " id="exampleModalCenter{{$vid->videoid}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -484,7 +487,8 @@ $(document).ready(function(){
     { alert('video added');
       $('.video' + data.topicid).last().append(
         '<a id="videolink" class="video" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter'+data.videoid+'" >'+
-      '<i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>'+data.name+'</a>'+         
+      '<i  style="margin:1% 1% 1% 1%" class="fas fa-play-circle" ></i>'+data.name+'</a>'+ 
+      '<a href=""class="newvideo" id="'+data.videoid+'" style="margin-left:1%;lenght:30px; width:30px" ><i style ="color:red"class="fa fa-trash-alt" ></i> </a>'+        
         '<br>'+
                '<div class="modal fade" id="exampleModalCenter'+data.videoid+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">'+
                   '<div class="modal-dialog modal-dialog-centered" role="document">'+
@@ -495,6 +499,21 @@ $(document).ready(function(){
                      '</div>'+
                   '</div>'+
                 '</div>');
+
+    $('.newvideo').on('click', function(e){
+    e.preventDefault();
+    var id = $(this).attr('id');//alert(id);
+  $(this).prev().remove();
+  $(this).remove();  
+   $.ajax({
+    url:"{{ route('delvideo') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert(data['success']);
+    }
+   });
+   }); 
   
          
    }
@@ -506,7 +525,7 @@ $(document).ready(function(){
  $('#topicgo').click(function(){ 
   $('#topicform').on('submit', function(event){
   event.preventDefault(); 
-  alert("add");
+  //alert("add");
  
    $.ajax({
     url:"{{route('topicstore')}}",
@@ -517,8 +536,9 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    { alert(data.topicid);
+    { alert("data added successfully");
  $('#card').last().append(
+  '<a href=""class="newtopic" id="'+data.topicid+'" style="margin-left:95%;lenght:30px; width:30px" ><i style ="color:red"class="fa fa-trash-alt" ></i> </a>'+
       '<a href="#collapse'+data.topicid+'" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">'+
           '<h6  class="m-0 font-weight-bold text-primary">'+data.name+'</h6>'+
         '</a>'+
@@ -530,10 +550,55 @@ $(document).ready(function(){
                '</div> </div>'+
           +'</div>');
 
+  $('.newtopic').on('click', function(e){
+    e.preventDefault();
+  $(this).next().remove();
+  $(this).remove();  
+  var id = $(this).attr('id');//alert(id);
+   $.ajax({
+    url:"{{ route('deltopic') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert(data['success']);
+    }
+   });
+   }); 
+
    }
    });
   }); 
   });
+
+  $('.deletetopic').on('click', function(e){
+    e.preventDefault();
+  $(this).next().remove();
+  $(this).remove();  
+  var id = $(this).attr('id');//alert(id);
+   $.ajax({
+    url:"{{ route('deltopic') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert(data['success']);
+    }
+   });
+   }); 
+
+   $('.deletevideo').on('click', function(e){
+    e.preventDefault();
+  $(this).prev().remove();
+  $(this).remove();  
+  var id = $(this).attr('id');//alert(id);
+   $.ajax({
+    url:"{{ route('delvideo') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert(data['success']);
+    }
+   });
+   }); 
 
 
 });

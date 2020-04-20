@@ -25,11 +25,6 @@ class CourseContentController extends Controller
     {    $chapid = request()->query('id');
         $image = chapter::where('chapid',$chapid)->join('courses','chapters.courseid','=','courses.courseid')
         ->pluck('image'); 
-    //     $topic = topic::where('chapid',$chapid)
-    //     ->join('videos','topics.topicid','=','videos.topicid')
-    //     ->select('topics.topicid','topics.name as topic','content','videos.name as videoname','videoid','video')->get();
-    //   //return dd($topic);
-    //       return view('topic',['data'=>$topic]);
             $topic = topic::where('chapid',$chapid)->pluck('topicid'); 
             $finaldata = array();
             foreach($topic as $id){
@@ -122,9 +117,31 @@ class CourseContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function deltopic()
+    { $id = request()->query('id');
+        $topic = topic::find($id);
+        $topic->delete();
+        return response()->json(['success'=>'data deleted successfully']);
+        
+    }
+
+    public function delchapter()
+    { $id = request()->query('id');
+        $chapter = chapter::find($id);
+        $chapter->delete();
+        return response()->json(['success'=>'data deleted successfully']);
+        
+    }
+
+    public function delvideo()
+    { $id = request()->query('id');
+        $video =video::find($id);
+  $path =  $video['video'];
+        $video->delete();
+      // unlink($path);
+
+        return response()->json(['success'=>'data deleted successfully']);
+        
     }
     public function storevideo(Request $request)
     {   $video = new video();
@@ -136,10 +153,11 @@ class CourseContentController extends Controller
         $video->name = $request->name;
         $video->topicid = $request->topicid;
         $video->save();
-       // $id = video::orderBy('videoid', 'DESC')->first();
+        $id = video::orderBy('videoid', 'DESC')->first();
         $data = [
             'topicid'=>$request->topicid,
             'lastvideoid'=>$request->hiddenvidid,
+            'videoid'=>$id['videoid'],
             'name'=> $request->name,
             'video'=>$file,
           ];

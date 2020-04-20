@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class chapter extends Model
 {
-    protected $primaryKey = 'chapterid';
+    protected $primaryKey = 'chapid';
     protected $fillable = ['name','desc','courseid'];
     
     public function topic(){

@@ -83,13 +83,14 @@
             </option>
             @endforeach
             </option>
+           
            </select>
           <select style="margin:10px 10px 10px 10px" class="form-control col-md-5" name="topic" id="topic">
           <option value="">select topic</option>
           </select>  
            <input  style="margin:10px 10px 10px 10px" type="file" id="file" name="file">
-         </div> <button type="submit"  id="go" name="go"  class=" btn-primary btn-sm">Add</button>
-         <button type="submit"  name="editgo" id="editgo"  class=" btn-success btn-sm">Edit</button>
+         </div> <button type="submit"   id="go" name="go"  class=" btn-primary btn-sm">Add</button>
+         <button type="submit" name="editgo" id="editgo"  class=" btn-success btn-sm">Edit</button>
         </form>
       </div>
     </div>
@@ -153,9 +154,68 @@ $(document).ready(function(){
     processData: false,
     dataType:"json",
     success:function(data)
-    { alert(data);
-     
+    {// alert("data added successfully");
+      $('#name').empty();
+    $('#due').empty();
+    $('#edithidden').empty();
       $('tbody').last().append("<tr>"+
+                            '<td><a href="'+data.file+'" class="btn btn-warning" ><i title="file"style="color:black" class="fa fa-file-alt"></i></a></td>'+
+                            "<td>" + data.assignment+ "</td>"+
+                            "<td>" + data.course + "</td>"+
+                            "<td>" + data.chapter + "</td>"+
+                            "<td>" + data.topic + "</td>"+
+                            "<td>" + data.due + "</td>"+
+                            '<td><span id="'+data.assignid+'"><button id="newdel" class="delete btn-danger btn-sm" >'+
+                            '<i title="delete"style="color:white" class="fa fa-trash-alt"></i></button></span>'+
+                            '<pspan id="'+data.assignid+'"><button  id="newedit" data-toggle="modal" data-target="#exampleModalCenter" class="editbtn btn-success btn-sm" >'+
+                      '<i title="edit"style="color:white" class="fa fa-edit"></i></button></pspan></td>'+
+                        "</tr>");
+
+  $('#newdel').on('click', function(){
+  $(this).parent().parent().parent().remove(); 
+  var id = $(this).parent().attr('id'); //alert(id);
+   $.ajax({
+    url:"{{ route('delassign') }}",
+    method:"get",
+    data:{id:id},
+    success:function(data)
+    {alert(data['success']);
+    }
+   });
+   }); 
+
+   $('#newedit').click(function(){
+    
+    var id = $(this).parent().attr('id');//alert(id);
+     // $('#go').hide();
+    if( $('#go').show()){
+      $("#go").hide();
+    }
+    if( $('#editgo').hide()){
+      $("#editgo").show();
+    }$('#edithidden').val(id);
+     var n= $('#edithidden').val(); alert(n);
+  
+  });
+
+  
+ $('pspan').click(function(){
+  $('#assignform').on('submit', function(event){
+  event.preventDefault(); 
+  alert($('#edithidden').val());
+   $.ajax({
+    url:"{{ route('storeassign') }}",
+    method:"POST",
+    data: new FormData(this),
+    contentType: false,
+    cache:false,
+    processData: false,
+    dataType:"json",
+    success:function(data)
+    {//alert("data updated");
+    // var hi = $('tbody').attr('id','post'+data.assignid );
+    //   alert(hi[0]);
+    $('tbody').last().replaceWith("<tr>"+
                             '<td><a href="'+data.file+'" class="btn btn-warning" ><i title="file"style="color:black" class="fa fa-file-alt"></i></a></td>'+
                             "<td>" + data.assignment+ "</td>"+
                             "<td>" + data.course + "</td>"+
@@ -165,36 +225,51 @@ $(document).ready(function(){
                             '<td><button id="'+data.assignid+'" class="delete btn-danger btn-sm" >'+
                             '<i title="delete"style="color:white" class="fa fa-trash-alt"></i></button>'+
                             '<espan><button  id="'+data.assignid+'" data-toggle="modal" data-target="#exampleModalCenter" class="editbtn btn-success btn-sm" >'+
-                      '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan><td>'+
+                      '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan></td>'+
                         "</tr>");
+    }
+   });});}); 
+
    }
    });});}); 
  
 //delete assignment
-   $('.delete').click( function(){
+   $('.delete').on('click', function(){
   $(this).parent().parent().remove(); 
-  var id = $(this).attr('id'); alert(id);
+  var id = $(this).attr('id'); //alert(id);
    $.ajax({
     url:"{{ route('delassign') }}",
     method:"get",
     data:{id:id},
     success:function(data)
-    {//alert(data['success']);
+    {alert('data deleted successfully');
     }
    });
    }); 
   //edit
-  $('.editbtn').click(function(){
+  $('.editbtn').on('click',function(){
     var id = $(this).attr('id');
-      $('#go').hide();
-      $('#editgo').show();
+     // $('#go').hide();
+    if( $('#go').show()){
+      $("#go").hide();
+    }
+    if( $('#editgo').hide()){
+      $("#editgo").show();
+    }
       $('#edithidden').val(id); //alert(id);
   });
-  // $('#add').click(function(){
-  
-  //    $('#editgo').hide();
-     
-  // });
+
+
+
+  //edit
+  $('#add').click(function(){
+    if( $('#editgo').show()){
+      $("#editgo").hide();
+    }
+    if( $('#go').hide()){
+      $("#go").show();
+    }
+  });
 
 
  $('espan').click(function(){
@@ -223,7 +298,7 @@ $(document).ready(function(){
                             '<td><button id="'+data.assignid+'" class="delete btn-danger btn-sm" >'+
                             '<i title="delete"style="color:white" class="fa fa-trash-alt"></i></button>'+
                             '<espan><button  id="'+data.assignid+'" data-toggle="modal" data-target="#exampleModalCenter" class="editbtn btn-success btn-sm" >'+
-                      '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan>'+
+                      '<i title="edit"style="color:white" class="fa fa-edit"></i></button></espan></td>'+
                         "</tr>");
     }
    });});}); 
