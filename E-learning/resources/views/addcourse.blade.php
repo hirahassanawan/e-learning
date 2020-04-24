@@ -87,7 +87,7 @@
                     <input  style="margin:10px 10px 10px 10px" type="file" id="video" name="video"> <br>
                     <h5 class="font-weight-bold" style="margin:10px 10px 10px 10px;color:#000000" >Image</h5>    
                     <input  style="margin:10px 10px 10px 10px" type="file" id="image" name="image">
-                </div> <input  style="margin:50px 10px 10px 100px; width:30%" type="submit" id="add" name="add" class="btn btn-primary ">
+                </div> <input  style="margin:50px 10px 10px 20px; width:30%" type="submit" id="add" name="add" class="btn btn-primary ">
                 </form>
             </div>{{ csrf_field() }}
         </div>
